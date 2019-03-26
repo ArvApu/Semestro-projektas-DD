@@ -10,14 +10,18 @@ Valdas Gudelevičius IFF-7/8
 **To get started:**  
 1. git clone https://github.com/ArvApu/Semestro-projektas-DD.git
     * *```git pull``` if already cloned* 
-1. cd Semestro-projektas-DD  
+1. cd Semestro-projektas-DD 
 1. composer install  
+1. git checkout development
+   * *create your branch ```git branch (your name)-features```*
+   * *if you have branch check if it is not behind development if it is:*  
+   ```git pull origin development``` 
 1. php bin/console server:run  
 
-_**Notes: php and composer should be instaled.**_    
+_**Note: php and composer should be instaled.**_    
 
 **Extras:**  
-Generates route, controller and view:
+Generate route, controller and view:
 ```
 $ php bin/console make:controller NameController
 ```
@@ -37,11 +41,6 @@ Make enityt (model):
 $ php bin/console make:entity EntityName
 ```
 
-Setup database connection:
-```
-DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
-```
-
 Generate migration
 ```
 $ php bin/console make:migration
@@ -51,5 +50,10 @@ GRUD (Create, Read, Update, Delete):
 ```
 $ php bin/console make:crud ExistingEntity
 ```
+
+Setup database connection:
+```
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+```  
 More info at:
 [Symfony documentation](https://symfony.com/)
