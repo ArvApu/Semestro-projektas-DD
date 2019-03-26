@@ -14,8 +14,9 @@ Valdas Gudelevičius IFF-7/8
 1. composer install  
 1. php bin/console server:run  
 
-Notes: php and composer should be instaled.  
-Extras:
+_**Notes: php and composer should be instaled.**_    
+
+**Extras:**  
 Generates route, controller and view:
 ```
 $ php bin/console make:controller NameController
