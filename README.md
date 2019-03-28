@@ -18,7 +18,7 @@ Valdas Gudelevičius IFF-7/8
    ```git pull origin development``` 
 1. php bin/console server:run  
 
-_**Note: php and composer should be instaled.**_    
+_**Note: php and composer should be instaled. If using phpStorm enable Symfony plugin for project**_    
 
 **Extras:**  
 Generate route, controller and view:
