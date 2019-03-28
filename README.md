@@ -22,6 +22,12 @@ Valdas Gudelevičius IFF-7/8
 _**Note: php and composer should be instaled. If using phpStorm enable Symfony plugin for project.**_    
 
 **Extras:**  
+
+Debugging tool:
+```
+$ php bin/console
+```
+
 Generate route, controller and view:
 ```
 $ php bin/console make:controller NameController
