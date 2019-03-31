@@ -38,8 +38,15 @@ class EventController extends AbstractController
      */
     public function show($eventId)
     {
-        return $this->render('event/show.html.twig', [
-            'title' =>  ucwords(str_replace('-',' ', $eventId)),
+        $repository = $this->getDoctrine()->getRepository(Event::class);
+        $event = $repository->findOneBy(['id' => $eventId]);
 
+        if (!$event)
+        {
+            throw $this->createNotFoundException(sprintf('No event with id "%s"', $eventId));
+        }
+
+        return $this->render('event/show.html.twig', [
+            'event' =>  $event
         ]);
     }}
