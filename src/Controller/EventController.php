@@ -9,18 +9,28 @@
 namespace App\Controller;
 
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+use App\Entity\Event;
 
 class EventController extends AbstractController
 {
+
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/event/new", name="create_event")
      */
-    public function homepage()
+    public function newEvent(EntityManagerInterface $em)
     {
-        return $this->render('event/homepage.html.twig');
+        $user = new User();
+        $event = new Event('Bek uz tevyne','Labai geras begimas',"sveikata","2019-08-02",null,"Kaunas KTU",$user);
+
+        $em->persist($event);
+        $em->flush();
+
+        return new Response('<html><body>Yay event created</body></html>');
     }
 
     /**
@@ -28,15 +38,8 @@ class EventController extends AbstractController
      */
     public function show($eventId)
     {
-        $comments = [
-            'I ate a normal rock once. It did NOT taste like bacon!',
-            'Woohoo! I\'m going on an all-asteroid diet!',
-            'I like bacon too! Buy some from my site! bakinsomebacon.com',
-        ];
-
         return $this->render('event/show.html.twig', [
             'title' =>  ucwords(str_replace('-',' ', $eventId)),
-            'comments' => $comments
 
         ]);
     }}
