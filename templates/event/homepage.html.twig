@@ -3,18 +3,16 @@
 
 {% block body %}
 
-
-    {% for event in events %}
-        <a href="{{ path('event_show', { eventId: event.id } ) }}">
-            <h3> {{ event.title }} </h3>
-            {% if event.price == null or event.price == 0 %}
-                <p>FREE</p>
-            {% else %}
-                {{ event.price  }}
-            {% endif %}
-        </a>
-    {% endfor %}
-
+        {% for event in events %}
+                <a class="linkBox" href="{{ path('event_show', { eventId: event.id } ) }}">
+                    <h3> {{ event.title }} </h3>
+                    {% if event.price == null or event.price == 0 %}
+                        <p>FREE</p>
+                    {% else %}
+                        {{ event.price  }}
+                    {% endif %}
+                </a>
+        {% endfor %}
 {% endblock %}
 
 
