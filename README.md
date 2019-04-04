@@ -12,15 +12,22 @@ Valdas Gudelevičius IFF-7/8
     * *```git pull``` if already cloned* 
 1. cd Semestro-projektas-DD 
 1. composer install  
+1. composer require annotations
 1. git checkout development
    * *create your branch ```git branch (your name)-features```*
    * *if you have branch check if it is not behind development if it is:*  
    ```git pull origin development``` 
 1. php bin/console server:run  
 
-_**Note: php and composer should be instaled.**_    
+_**Note: php and composer should be instaled. If using phpStorm enable Symfony plugin for project.**_    
 
 **Extras:**  
+
+Debugging tool:
+```
+$ php bin/console
+```
+
 Generate route, controller and view:
 ```
 $ php bin/console make:controller NameController
