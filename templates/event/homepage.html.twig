@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+        {% for event in events %}
+                <a class="linkBox" href="{{ path('event_show', { eventId: event.id } ) }}">
+                    <h3> {{ event.title }} </h3>
+                    <div class="infoBox">
+                        <label class="forLabel">Kaina:</label>
+                        {% if event.price == null or event.price == 0 %}
+                            <p>Nemokamas</p>
+                        {% else %}
+                            <p>{{ event.price }}</p>
+                        {% endif %}
+                        <labe class="forLabel">Data</labe>
+                        <p>{{ event.date|date('Y-m-d')}}</p>
+                    </div>
+                </a>
+        {% endfor %}
+{% endblock %}
+
