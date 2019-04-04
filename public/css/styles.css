@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #FFFFFF;
+}
+
+
+.linkBox h3{
+    text-align: center;
+}
+
+.navBar-box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+    background-color: teal;
+}
+
+
+.linkBox {
+    display: block;
+    text-decoration: none;
+    color: black;
+    background-color: goldenrod;
+    width: 80%;
+    height: 150px;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
+
+
+.buttonLink {
+    width: 100px;
+    display: block;
+    margin: 7px 20px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: black;
+}
+
+.auth-box {
+
+}
+
+img {
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+}
+
+.forLabel {
+    font-weight: bold;
+}
+
+.infoBox {
+    margin-left: 20px;
+}

@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Kas vyksta KTU{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/font-awesome.css">
+    {% endblock %}
+</head>
+
+<body>
+
+<nav class="navBar-box">
+    <a style="text-decoration: none" href="{{ path('app_homepage') }}"><img src="{{ asset('images/ktu-logo.png') }}"></a>
+    <div class="auth-box">
+        <a style="text-decoration: none" href="{{ path('app_login') }}"><button class="buttonLink">Login</button></a>
+        <a style="text-decoration: none" href="{{ path('app_register') }}"><button class="buttonLink">Register</button></a>
+    </div>
+</nav>
+
+
+{% block body %}{% endblock %}
+
+</body>
 </html>
