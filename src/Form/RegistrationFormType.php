@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,24 +23,25 @@ class RegistrationFormType extends AbstractType
             ->add('email',EmailType::class, ['label' => 'El. paštas'])
             ->add('firstName', TextType::class, ['label' => 'Vardas'])
             ->add('lastName',TextType::class, ['label' => 'Pavardė'])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-                'label' => 'Slaptažodis'
-            ])
-        ;
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'mapped' => false,                                          // Nejudinti, nes tada reiks refactrointi plainPassword
+                'required' => true,
+                'constraints' =>
+                    [
+                        new NotBlank(['message' => 'Prašome įvesti slaptažodį']),
+                        new Length(
+                            [
+                                'min' => 6,
+                                'minMessage' => 'Slaptažodis turėtu būti bent {{ limit }} simbolių ilgio',
+                                // max length allowed by Symfony for security reasons
+                                'max' => 4096,
+                            ]),
+                    ],
+                'invalid_message' => 'Slaptažodžiai turi sutapti',
+                'first_options'  => array('label' => 'Slaptažodis'),
+                'second_options' => array('label' => 'Pakartoti slaptažodį'),
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -49,3 +51,5 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 }
+
+
