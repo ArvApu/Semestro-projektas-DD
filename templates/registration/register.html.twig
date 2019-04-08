@@ -5,6 +5,7 @@
 {% block body %}
     <h1>Register</h1>
 
+    {% form_theme registrationForm 'bootstrap_4_horizontal_layout.html.twig' %}
     {{ form_start(registrationForm) }}
 
         {{ form_row(registrationForm.username) }}
