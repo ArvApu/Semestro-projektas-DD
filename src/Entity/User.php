@@ -26,6 +26,7 @@ class User implements UserInterface
      */
     private $email;
 
+    
     /**
      * @ORM\Column(type="json")
      */
@@ -41,6 +42,21 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="author")
      */
     private $events;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $username;
 
     public function __construct()
     {
@@ -71,7 +87,8 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        // return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -152,6 +169,37 @@ class User implements UserInterface
                 $event->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }
