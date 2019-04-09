@@ -20,16 +20,18 @@
                                 <div class="info">
                                     <h2 class="title">Disney Junior Live On Tour!</h2>
                                     <p class="desc"> Pirate and Princess Adventure</p>
+
                                     <ul>
                                         <li style="width:33%;">
-                                            {% if event.price == null or event.price == 0 %}
-                                                Nemokamas
-                                            {% else %}
-                                                €{{ event.price }}
-                                            {% endif %}
-                                        <span class="fa fa-tag"></span></li>
-                                        <li style="width:34%;">Plačiau <span class="fa fa-info-circle"></span></li>
+                                                {% if event.price == null or event.price == 0 %}
+                                                    Nemokamas
+                                                {% else %}
+                                                    €{{ event.price }}
+                                                {% endif %}
+                                            <span class="fa fa-tag"></span></li>
+                                        <li style="width:34%;"><a href="{{ path('event_show', { eventId: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
                                     </ul>
+                                    </a>
                                 </div>
                             </li>
                         </ul>

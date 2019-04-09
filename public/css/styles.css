@@ -4,8 +4,13 @@ img {
 }
 
 html body {
-    background-color: #ffaf96 !important;
+    background-color: #daebbf
 }
+
+.bg-hot {
+    background-color: #631a15
+}
+
 
 
 .event-list {
@@ -14,6 +19,13 @@ html body {
     margin: 0px;
     padding: 0px;
 }
+
+.event-list  a {
+    display: inline-block !important;
+    color: red;
+    text-decoration: none;
+}
+
 
 .event-list > li > time {
     display: inline-block;
