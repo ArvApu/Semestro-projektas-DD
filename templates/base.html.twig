@@ -9,19 +9,40 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/font-awesome.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     {% endblock %}
 </head>
 
 <body>
 
-<nav class="navBar-box">
-    <a style="text-decoration: none" href="{{ path('app_homepage') }}"><img src="{{ asset('images/ktu-logo.png') }}"></a>
-    <div class="auth-box">
-        <a style="text-decoration: none" href="{{ path('app_login') }}"><button class="buttonLink">Login</button></a>
-        <a style="text-decoration: none" href="{{ path('app_register') }}"><button class="buttonLink">Register</button></a>
+<nav class="navbar navbar-expand-md bg-secondary navbar-dark sticky-top">
+    <a href="{{ path('app_homepage') }}"><img src="{{ asset('images/ktu-logo.png') }}"></a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="true">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navb" class="navbar-collapse collapse hide">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('app_homepage') }}">Kas vyksta KTU</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Page 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Page 2</a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_register') }}"><span class="fa fa-user"></span> Registruotis</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}"><span class="fa fa-sign-in"></span> Prisjungti</a>
+            </li>
+        </ul>
     </div>
 </nav>
-
 
 {% block body %}{% endblock %}
 
