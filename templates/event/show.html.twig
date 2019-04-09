@@ -3,14 +3,62 @@
 {% block title %} {{ event.title}} {% endblock %}
 
 {% block body %}
-    <h3>{{ event.title }}</h3>
-    <div>
-        {{ event.description }}
-    </div>
+        <div class="container center_div">
 
-    <div>
-        {{ event.location }}
-    </div>
+            <h1 class>{{ event.title }}</h1>
+
+            <p>Aprašymas:</p>
+
+            <div class="description">
+                {{ event.description }}
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <p>Vieta:</p>
+                    <div>
+                        {{ event.location }}
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <p>Laikas:</p>
+                    <div>
+                        {{ event.date|date("Y-m-d H:i") }}
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <p>Kaina:</p>
+                    <div>
+
+                        {% if event.price == null or event.price == 0 %}
+                            Nemokamas
+                        {% else %}
+                            €{{ event.price }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <p>Autorius:</p>
+                    <div>
+                        Admin
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+{#            <p>Autorius:</p>#}
+{#            <div>#}
+{#                {{ event.author }}#}
+{#            </div>#}
+        </div>
+
+        <div class="container center_div">
+            <h2>Atsiliepimai:</h2>
+        </div>
 
 {% endblock %}
 
