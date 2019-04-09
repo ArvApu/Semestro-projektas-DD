@@ -24,12 +24,12 @@ class EventController extends AbstractController
      */
     public function newEvent(EntityManagerInterface $em)
     {
-        $user = new User();
-        $event = new Event('Bek uz tevyne','Labai geras begimas',"sveikata","2019-08-02",null,"Kaunas KTU",$user);
-
-        $em->persist($event);
-        $em->flush();
-
+//        $user = new User();
+//        $event = new Event('Bek uz tevyne','Labai geras begimas',"sveikata","2019-08-02",null,"Kaunas KTU",$user);
+//
+//        $em->persist($event);
+//        $em->flush();
+//
         return new Response('<html><body>Yay event created</body></html>');
     }
 

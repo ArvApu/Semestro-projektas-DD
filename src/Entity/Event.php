@@ -163,4 +163,16 @@ class Event
 
         return $this;
     }
+
+    public function getDateMonth(): string
+    {
+        $m = (int)$this->date->format('m');
+        $months = ["Sau","Vas","Kov","Bal","Geg","Bir","Lie","Rgp","Rgs","Spa","Lap","Gru"];
+        return $months[$m-1];
+    }
+
+    public function getShortDescription(): string
+    {
+        return substr($this->description, 0, 10);
+    }
 }
