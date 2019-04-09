@@ -18,8 +18,11 @@
                                 </time>
                                 {#                    <img alt="Disney Junior Live On Tour!" src="http://www.thechaifetzarena.com/images/main/DL13_PiratePrincess_thumb.jpg" />#}
                                 <div class="info">
-                                    <h2 class="title">Disney Junior Live On Tour!</h2>
-                                    <p class="desc"> Pirate and Princess Adventure</p>
+                                    <h2 class="title">{{ event.title }}!</h2>
+                                    <p class="desc">
+                                        {{ event.description|length > 100 ? event.description|slice(0, 100) ~ '...' : event.description  }}
+
+                                    </p>
 
                                     <ul>
                                         <li style="width:33%;">
