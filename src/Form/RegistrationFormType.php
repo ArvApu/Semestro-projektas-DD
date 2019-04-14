@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastName',TextType::class, ['label' => 'Pavardė'])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'mapped' => false,                                          // Nejudinti, nes tada reiks refactrointi plainPassword
+                'mapped' => false,
                 'required' => true,
                 'constraints' =>
                     [

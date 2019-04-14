@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -18,21 +19,25 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
     private $category;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
     private $date;
 
@@ -43,37 +48,16 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
     private $location;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
     private $author;
-
-    /**
-     * Event constructor.
-     * @param $id
-     * @param $title
-     * @param $description
-     * @param $category
-     * @param $date
-     * @param $price
-     * @param $location
-     * @param $author
-     */
-    public function __construct($title, $description, $category, $date, $price, $location, $author)
-    {
-        $this->title = $title;
-        $this->description = $description;
-        $this->category = $category;
-        $this->date = $date;
-        $this->price = $price;
-        $this->location = $location;
-        $this->author = $author;
-    }
-
 
     public function getId(): ?int
     {
