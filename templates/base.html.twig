@@ -45,14 +45,15 @@
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item dropdown" style="margin-right: 5px;">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="nav-profile-img rounded-circle" style="height: 50px;" src="{{ asset('images/man-user.svg') }}">
+                        <img src="{{ app.user.avatarUrl(100) }}"  style="height: 55px" alt="Profilis"  class="img-responsive thumbnail">
+                        {#<img class="nav-profile-img rounded-circle" style="height: 50px;" src="{{ asset('images/man-user.svg') }}">#}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ path('app_account') }}">Profile</a>
-                        <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ path('app_account') }}"><i style="margin-right: 5px;" class="fa fa-user"></i> Profilio puslapis </a>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}"><i style="margin-right: 5px;" class="fa fa-sign-out"></i> Atsijungti</a>
 
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a class="dropdown-item" href="{{ path('create_event') }}">Create Post</a>
+                            <a class="dropdown-item" href="{{ path('create_event') }}"><i style="margin-right: 5px;" class="fa fa-edit"></i> Create Post</a>
                         {% endif %}
                     </div>
             {% else %}
