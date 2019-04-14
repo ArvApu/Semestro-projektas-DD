@@ -10,21 +10,18 @@ namespace App\Controller;
 
 
 use App\Form\EventFormType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
 use App\Entity\Event;
 
 class EventController extends AbstractController
 {
 
     /**
-     * @Route("/event/new", name="create_event")
+     * @Route("/admin/event/new", name="create_event")
      */
     public function addEvent(Request $request, UrlGeneratorInterface $urlGenerator)
     {
@@ -51,7 +48,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{eventId}", name="event_show")
+     * @Route("event/{eventId}", name="event_show")
      */
     public function show($eventId)
     {
