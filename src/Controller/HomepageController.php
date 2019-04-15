@@ -19,6 +19,7 @@ class HomepageController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Event::class);
         $events = $repository->findAll();
 
+
         return $this->render('event/homepage.html.twig', [
             "events" => $events
         ]);

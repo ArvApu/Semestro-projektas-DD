@@ -11,6 +11,31 @@ html body {
     background-color: #631a15
 }
 
+.center_div{
+    margin: 2% auto;
+    background-color: white;
+    width:100%;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.center_div p {
+    font-weight: bold;
+    margin-top: 2%;
+}
+
+.center_div h1 {
+    text-align: center;
+}
+
+.description {
+    width: 100%;
+    min-height: 80px;
+    background-color: #AAAAAA;
+    padding: 8px;
+    border-radius: 5px;
+}
+
 .event-list {
     list-style: none;
     font-family: 'Lato', sans-serif;
