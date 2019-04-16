@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -26,6 +27,7 @@ class User implements UserInterface
      */
     private $email;
 
+    
     /**
      * @ORM\Column(type="json")
      */
@@ -37,10 +39,37 @@ class User implements UserInterface
      */
     private $password;
 
+//    /**
+//     * @var string The hashed password
+//     * @ORM\Column(type="string")
+//     */
+//    private $newPassword;
+
+    /**
+     * @ORM\Column(name="passwordResetToken", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
+     */
+    private $passwordResetToken;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="author")
      */
     private $events;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $username;
 
     public function __construct()
     {
@@ -71,7 +100,23 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        // return (string) $this->email;
+        return (string) $this->username;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPasswordResetToken()
+    {
+        return $this->passwordResetToken;
+    }
+    /**
+     * @param null|string $passwordResetTokenProfile
+     */
+    public function setPasswordResetToken($passwordResetToken)
+    {
+        $this->passwordResetToken = $passwordResetToken;
     }
 
     /**
@@ -154,5 +199,51 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+
+    public function __toString(): string
+    {
+        return $this->username;
+    }
+
+
+    public function getAvatarUrl(string $size = null): string
+    {
+        $url = 'https://robohash.org/'.$this->getEmail();
+        if ($size)
+            $url .= sprintf('?size=%dx%d', $size, $size);
+        return $url;
     }
 }

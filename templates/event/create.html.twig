@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Kurti nauja {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {{ form_start(form) }}
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.location) }}
+        {{ form_row(form.author) }}
+
+        <button class="btn btn-primary">Pridėti!</button>
+
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}
