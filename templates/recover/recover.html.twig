@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recover password!{% endblock %}
+
+{% block body %}
+    <form method="post">
+    <div class="container">
+         {# <h1 class="h3 mb-3 font-weight-normal">Įrašykite naują slaptažodį</h1> #}
+        {# alerts rendering #}
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {{ parent() }}
+
+        {{ form_start(form) }}
+        {% if action == "reset" %}
+        <h1 class="h3 mb-3 font-weight-normal">Prašome įvesti elektroninio pašto adresą</h1>
+            Elektroninio pašto adresas: {{ form_widget(form.email) }}<br />
+        {% else %}
+         <h1 class="h3 mb-3 font-weight-normal">Įrašykite naują slaptažodį</h1>
+            Naujas slaptažodis: {{ form_widget(form.password.first) }}<br />
+            Pakartokite naują slaptažodį: {{ form_widget(form.password.second) }}<br />
+        {% endif %}
+        {{ form_start(form) }}
+        {{ form(form, {'method': 'POST'}) }}
+    </div>
+{% endblock %}

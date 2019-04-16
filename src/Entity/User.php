@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -37,6 +38,18 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+//    /**
+//     * @var string The hashed password
+//     * @ORM\Column(type="string")
+//     */
+//    private $newPassword;
+
+    /**
+     * @ORM\Column(name="passwordResetToken", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
+     */
+    private $passwordResetToken;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="author")
@@ -89,6 +102,21 @@ class User implements UserInterface
     {
         // return (string) $this->email;
         return (string) $this->username;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPasswordResetToken()
+    {
+        return $this->passwordResetToken;
+    }
+    /**
+     * @param null|string $passwordResetTokenProfile
+     */
+    public function setPasswordResetToken($passwordResetToken)
+    {
+        $this->passwordResetToken = $passwordResetToken;
     }
 
     /**
