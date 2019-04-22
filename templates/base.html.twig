@@ -35,6 +35,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('create_event') }}">Kurti renginį</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_category_create') }}">Pridėti naują kategoriją</a>
+            </li>
             {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="#">Man sekasi!</a>
@@ -50,11 +53,11 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ path('app_account') }}"><i style="margin-right: 5px;" class="fa fa-user"></i> Profilio puslapis </a>
-                        <a class="dropdown-item" href="{{ path('app_logout') }}"><i style="margin-right: 5px;" class="fa fa-sign-out"></i> Atsijungti</a>
-
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a class="dropdown-item" href="{{ path('create_event') }}"><i style="margin-right: 5px;" class="fa fa-edit"></i> Create Post</a>
+                            <a class="dropdown-item" href="{{ path('create_event') }}"><i style="margin-right: 5px;" class="fa fa-edit"></i> Sukurti renginį</a>
+                            <a class="dropdown-item" href="{{ path('app_category_create') }}"><i style="margin-right: 5px;" class="fa fa-plus"></i> Sukurti kategorija</a>
                         {% endif %}
+                        <a class="dropdown-item" href="{{ path('app_logout') }}"><i style="margin-right: 5px;" class="fa fa-sign-out"></i> Atsijungti</a>
                     </div>
             {% else %}
                 <li class="nav-item">

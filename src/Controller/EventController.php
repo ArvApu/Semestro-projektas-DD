@@ -39,7 +39,6 @@ class EventController extends AbstractController
             $entityManager->flush();
 
             return new RedirectResponse($urlGenerator->generate('app_homepage'));
-
         }
 
         return $this->render('event/create.html.twig', [

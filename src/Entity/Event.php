@@ -88,11 +88,6 @@ class Event
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->title . " -if needed more info from toString edit method";
-    }
-
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
