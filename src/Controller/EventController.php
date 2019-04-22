@@ -32,13 +32,13 @@ class EventController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $event->setAuthor($this->getUser());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
 
             return new RedirectResponse($urlGenerator->generate('app_homepage'));
-
         }
 
         return $this->render('event/create.html.twig', [

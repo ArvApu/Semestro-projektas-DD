@@ -30,12 +30,6 @@ class Event
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=30)
-     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
-     */
-    private $category;
-
-    /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
@@ -55,9 +49,15 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
      */
     private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Nepalikti tuščio lauko!")
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -84,18 +84,6 @@ class Event
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -158,5 +146,17 @@ class Event
     public function getShortDescription(): string
     {
         return substr($this->description, 0, 10);
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }
