@@ -100,7 +100,6 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        // return (string) $this->email;
         return (string) $this->username;
     }
 
@@ -237,7 +236,6 @@ class User implements UserInterface
     {
         return $this->username;
     }
-
 
     public function getAvatarUrl(string $size = null): string
     {

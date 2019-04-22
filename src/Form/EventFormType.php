@@ -19,11 +19,10 @@ class EventFormType extends AbstractType
         $builder
             ->add('title',TextType::class,  ['label' => 'Pavadinimas'])
             ->add('description',TextareaType::class,  ['label' => 'Aprašymas'])
-            ->add('category',TextType::class,  ['label' => 'Kategorija'])
+            ->add('category')
             ->add('date', DateTimeType::class, ["label" => 'Data'])
             ->add('price', MoneyType::class, ["label" => 'Kaina'])
             ->add('location',TextType::class,  ['label' => 'Vieta'])
-            ->add('author')
         ;
     }
 
