@@ -20,11 +20,8 @@ class RecoverController extends AbstractController
     /**
      * @Route("/recover", name="app_recover")
      */
-    public function remindPassword(Request $request, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
+    public function remindPassword(Request $request, \Swift_Mailer $mailer): Response
     {
-//        if ($authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
-//            return $this->redirectToRoute('index');
-//        }
         $error="";
         $user = new ForgotPassword();
         $form = $this->createForm(ForgotPasswordType::class, $user);
@@ -53,18 +50,21 @@ class RecoverController extends AbstractController
                     )
                 ;
                 $mailer->send($message);
-                return $this->render('base.html.twig', array(
-                    'success' => "Laiškas su nuoroda atkurti slaptažodį išsiųstas."
-                ));
+                return $this->render('recover/recover.html.twig', [
+                'form'=>$form->createView(),
+                'action' => "reset",
+                'success' => "Laiškas su nuoroda atkurti slaptažodį išsiųstas."
+                ]);
             }
             else {
                 $error="Naudotojo su tokių elektroninių paštu nėra.";
             }
         }
+        
         return $this->render('recover/recover.html.twig', [
             'form'=>$form->createView(),
             'action' => "reset",
-            'error'=>$error
+            'error' => $error
         ]);
     }
 
@@ -92,9 +92,10 @@ class RecoverController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('app_login');
         }
+
         return $this->render('recover/recover.html.twig', [
             'form'=>$form->createView(),
-            'action' => "set",
+            'action' => "set"
         ]);
     }
 }

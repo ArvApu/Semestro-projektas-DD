@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
 
 class SetNewPasswordType extends AbstractType
 {
@@ -25,14 +27,25 @@ class SetNewPasswordType extends AbstractType
         $builder
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Naujas slaptažodis'),
-                'second_options' => array('label' => 'Pakartokite naują slaptažodį'),
-                'invalid_message' => 'Turi sutapti.',
+                'required' => true,
+                'constraints' =>
+                    [
+                        new NotBlank(['message' => 'Prašome įvesti slaptažodį']),
+                        new Length(
+                            [
+                                'min' => 6,
+                                'minMessage' => 'Slaptažodis turėtu būti bent {{ limit }} simbolių ilgio',
+                                // max length allowed by Symfony for security reasons
+                                'max' => 4096,
+                            ]),
+                    ],
+                'invalid_message' => 'Slaptažodžiai turi sutapti',
+                'first_options'  => array('label' => 'Slaptažodis'),
+                'second_options' => array('label' => 'Pakartoti slaptažodį'),
             ))
-            ->add('submit', SubmitType::class, array(
+                ->add('submit', SubmitType::class, array(
                 'label'=>'Įrašyti naują slaptažodį'
-            ))
-        ;
+            ));
     }
     public function configureOptions(OptionsResolver $resolver)
     {
