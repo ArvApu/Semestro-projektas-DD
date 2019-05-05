@@ -8,13 +8,20 @@
   <tr>
     <th>Kategorija</th>
     <th>Parinktys</th>
+    {% if is_granted('ROLE_ADMIN') %}
+    <th>Veiksmai</th>
+    {% endif %}
   </tr>
   <tr>
     <td>{{category.name}}</td>
-    <td style="width:34%;"><a href="{{ path('category_subscribe', { categoryName: category.name} ) }}">Prenumeruoti<span ></a>
-    <a href="{{ path('category_subscribe', { categoryName: category.name} ) }}">Atšaukti prenumeratą<span ></a>
+    <td style="width:34%;"><a href="{{ path('category_subscribe', { id: category.id} ) }}">Prenumeruoti<span ></a>
+    <a href="{{ path('category_unsubscribe', { id: category.id} ) }}">Atšaukti prenumeratą<span ></a>
     </td>
-
+    {% if is_granted('ROLE_ADMIN') %}
+    <td style="width:34%;"><a href="{{ path('category_edit', { id: category.id} ) }}">Koreguoti <span ></a>
+    <a href="{{ path('category_delete', { id: category.id} ) }}">Ištrinti <span ></a>
+    </td>
+    {% endif %}
   </tr>
 </table>
 

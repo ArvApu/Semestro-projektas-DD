@@ -21,18 +21,19 @@ class SubscribedCategory
      */
     private $id;
 
-
+    /**
+     * @ORM\Column(type="json")
+     */
     private $categories = [];
 
-
+    /**
+     * @ORM\Column(type="json")
+     */
     private $matching;
-
 
     public function getCategories(): array
     {
         $categories = $this->categories;
-        // guarantee every user at least has ROLE_USER
-       // $categories[] = 'ROLE_USER';
 
         return array_unique($categories);
     }

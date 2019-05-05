@@ -33,6 +33,11 @@
                                                 {% endif %}
                                             <span class="fa fa-tag"></span></li>
                                         <li style="width:34%;"><a href="{{ path('event_show', { eventId: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
+                                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li style="width:12%;"><a href="{{ path('event_delete', {'id': event.id}) }}" >Ištrinti <span></span></a></li>
+                                        <li style="width:12%;"><a href="{{ path('event_edit', {'id': event.id}) }}">Koreguoti <span></span></a></li>
+                                        {% endif %}
+
                                     </ul>
                                     </a>
                                 </div>
@@ -43,4 +48,3 @@
             </div>
         {% endfor %}
 {% endblock %}
-

@@ -59,40 +59,91 @@ class CategoryController extends AbstractController
     }
 
 
-         /**
-     * @Route("categories/{categoryName}", name="category_subscribe")
+    /**
+     * @Route("/category/{id}/delete", name="category_delete")  
      */
-    public function subscribe($categoryName, UserInterface $user)
+    public function categoryRemoveAction($id)
+    {
+        $category = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($category);
+        $em->flush();
+
+        // Redirect to the table page
+        return $this->redirect($this->generateUrl('category_show'));
+        
+    }
+
+    /**
+     * @Route("/category/{id}/edit", name="category_edit")  
+     */
+    public function categoryEditAction(Request $request, $id)
+    {
+        $category = new Category();
+        $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
+
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirect($this->generateUrl('category_show'));
+        }
+
+        return $this->render('category/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+        
+    }
+
+
+     /**
+     * @Route("categories/{id}/subscribe", name="category_subscribe")
+     */
+    public function subscribe($id, UserInterface $user)
     {
    //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $repository = $this->getDoctrine()->getRepository(Category::class);
-     //   $categories = $repository->find($categoryName);
-        $categories = $repository->findAll();
-
-   //     $user = new User();
+        $category = new Category();
+        $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
 
         $entityManager = $this->getDoctrine()->getManager();
 
         $subscribedCategory = new SubscribedCategory();
-    //    $userId = $user->getId();
+
         $userId = $user->getId(); 
 
   //      $subscribedCategory->setCategories([$categoryName]);
 
         $subscribedCategory->setMatching($userId);
 
-        $subscribedCategory->setCategories(['xdd', 'xdds']);
+        $subscribedCategory->setCategories([$id]);
 
-    //    $subscribedCategory->setMatching(1256);
+
+     //   $subscribedCategory->setCategories(['xdd', 'xdds']);
 
         $entityManager->persist($subscribedCategory);
 
         $entityManager->flush();
 
-        return new Response('Saved new product with id '.$subscribedCategory->getCategories());
+        return new Response('Saved new subscription with users id '.$subscribedCategory->getMatching());
 
       //  return $this->render('category/subscribe.html.twig', ["categories" => $categories]);
+    }
+
+    /**
+     * @Route("categories/{id}/unsubscribe", name="category_unsubscribe")
+     */
+    public function unsubscribe($id, UserInterface $user)
+    {
+        $category = new Category();
+        $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
     }
     
 }
