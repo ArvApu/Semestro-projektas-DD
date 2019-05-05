@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+        {% for category in categories %}
+<table id="customers">
+  <tr>
+    <th>Kategorija</th>
+    <th>Parinktys</th>
+  </tr>
+  <tr>
+    <td>{{category.name}}</td>
+    <td style="width:34%;"><a href="{{ path('category_subscribe', { categoryName: category.name} ) }}">Prenumeruoti<span ></a>
+    <a href="{{ path('category_subscribe', { categoryName: category.name} ) }}">Atšaukti prenumeratą<span ></a>
+    </td>
+
+  </tr>
+</table>
+
+        {% endfor %}
+{% endblock %}
+
