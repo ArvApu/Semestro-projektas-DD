@@ -52,13 +52,15 @@
 
         </div>
 
-        <div class="container center_div">
-            <h3>Rašyti komentarą</h3>
-            {{ form_start(form) }}
-            {{ form_row(form.text) }}
-            <button class="btn btn-primary">Komentuoti</button>
-            {{ form_end(form) }}
-        </div>
+        {% if is_granted('ROLE_USER') %}
+            <div class="container center_div">
+                <h3>Rašyti komentarą</h3>
+                {{ form_start(form) }}
+                {{ form_row(form.text) }}
+                <button class="btn btn-primary">Komentuoti</button>
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
 
         {% if comments is not empty %}
             <div class="container center_div">
