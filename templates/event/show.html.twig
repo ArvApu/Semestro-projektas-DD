@@ -29,7 +29,6 @@
                 <div class="col-sm">
                     <p>Kaina:</p>
                     <div>
-
                         {% if event.price == null or event.price == 0 %}
                             Nemokamas
                         {% else %}
@@ -61,13 +60,24 @@
             {{ form_end(form) }}
         </div>
 
-        <div class="container center_div">
-            <h2>Komentarai</h2>
-            {% for com in comments %}
-                <p>{{ com.author }}</p>
-                <p>{{ com.text }}</p>
+        {% if comments is not empty %}
+            <div class="container center_div">
+            <h2 class="ml-4">Komentarai</h2>
+            {% for comment in comments %}
+                <ul class="media-list">
+                    <li class="media mt-5">
+                        <span class="media-left mr-4" style="background-color: #AAAAAA;">
+                            <img src="{{ comment.author.getAvatarUrl(100) }}" alt="AvatarPic">
+                        </span>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ comment.author }}</h4>
+                            {{ comment.text }}
+                        </div>
+                    </li>
+                </ul>
             {% endfor %}
-        </div>
+             </div>
+        {% endif %}
 
 {% endblock %}
 

@@ -17,7 +17,7 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=124)
+     * @ORM\Column(type="string", length=255)
      */
     private $text;
 

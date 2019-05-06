@@ -59,7 +59,7 @@ class EventController extends AbstractController
         $event = $repository->findOneBy(['id' => $eventId]);
 
         $repository = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repository->findBy(['event' => $event->getId()]);
+        $comments = $repository->findBy(['event' => $event->getId()],['id' => 'DESC']);
 
         if (!$event) {
             throw $this->createNotFoundException(sprintf('No event with id "%s"', $eventId));

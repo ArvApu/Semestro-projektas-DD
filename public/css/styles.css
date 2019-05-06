@@ -2,6 +2,10 @@
     outline: none;
 }
 
+textarea {
+    resize: none !important;
+}
+
 img {
     width: 60px;
     height: 60px;
