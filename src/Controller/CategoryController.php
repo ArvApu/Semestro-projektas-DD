@@ -15,6 +15,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Validation;
 
 class CategoryController extends AbstractController
 {
@@ -102,39 +105,38 @@ class CategoryController extends AbstractController
         
     }
 
-
-     /**
+    /**
      * @Route("categories/{id}/subscribe", name="category_subscribe")
      */
     public function subscribe($id, UserInterface $user)
     {
-   //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        try{
+            $categories = new Category();
+            $categories = $this->getDoctrine()->getRepository(Category::class)->find($id);
+        
+            $entityManager = $this->getDoctrine()->getManager();
+        
+            $subscribedCategory = new SubscribedCategory();
+        
+            $userId = $user->getId(); 
+        
+          //  $userr = new User();
+           // $userr = $this->getDoctrine()->getRepository(User::class)->find($userId);
+        
+            $subscribedCategory->setUser($user);
+            $subscribedCategory->setCategory($categories);
+        
+            $entityManager->persist($subscribedCategory);
+            $entityManager->flush();
+        
+            return $this->render('category/subscribe.html.twig', ["categories" => $categories]);
+                    }
+        
+            catch(UniqueConstraintViolationException $e){
+                $this->getDoctrine()->resetManager();
+        
+                }
 
-        $category = new Category();
-        $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
-
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $subscribedCategory = new SubscribedCategory();
-
-        $userId = $user->getId(); 
-
-  //      $subscribedCategory->setCategories([$categoryName]);
-
-        $subscribedCategory->setMatching($userId);
-
-        $subscribedCategory->setCategories([$id]);
-
-
-     //   $subscribedCategory->setCategories(['xdd', 'xdds']);
-
-        $entityManager->persist($subscribedCategory);
-
-        $entityManager->flush();
-
-        return new Response('Saved new subscription with users id '.$subscribedCategory->getMatching());
-
-      //  return $this->render('category/subscribe.html.twig', ["categories" => $categories]);
     }
 
     /**

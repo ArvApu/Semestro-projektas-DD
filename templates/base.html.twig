@@ -31,12 +31,10 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('app_homepage')  }}">Kas vyksta KTU</a>
             </li>
-
+            {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('category_show')}}">Kategorijos</a>
             </li>
-
-            {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('create_event') }}">Kurti renginį</a>
             </li>
@@ -75,6 +73,7 @@
         </ul>
     </div>
 </nav>
+
 
 {% block body %}{% endblock %}
 

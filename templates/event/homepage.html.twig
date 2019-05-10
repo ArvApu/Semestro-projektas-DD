@@ -32,10 +32,13 @@
                                                     €{{ event.price }}
                                                 {% endif %}
                                             <span class="fa fa-tag"></span></li>
-                                        <li style="width:34%;"><a href="{{ path('event_show', { eventId: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
+                                        <li style="width:20%;"><a href="{{ path('event_show', { eventId: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
+                                        {% if is_granted('ROLE_USER') %}
+                                         <li style="width:20%;"><a href="{{ path('category_subscribe', { id: event.getCategory().id} ) }}"">Prenumeruoti <i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                                        {% endif %}                                  
                                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <li style="width:12%;"><a href="{{ path('event_delete', {'id': event.id}) }}" >Ištrinti <span></span></a></li>
-                                        <li style="width:12%;"><a href="{{ path('event_edit', {'id': event.id}) }}">Koreguoti <span></span></a></li>
+                                        <li style="width:12%;"><a href="{{ path('event_delete', {'id': event.id}) }}" >Ištrinti <i class="fa fa-minus-circle" aria-hidden="true"></i></a></li>
+                                        <li style="width:12%;"><a href="{{ path('event_edit', {'id': event.id}) }}">Koreguoti <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                         {% endif %}
 
                                     </ul>

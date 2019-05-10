@@ -197,7 +197,7 @@ html body {
     }
 }
 
-#customers {
+#categories {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 50%;
@@ -205,17 +205,14 @@ html body {
     display:inline-block;
   }
   
-  #customers td, #customers th {
-   /* border: 1px solid #ddd; */
-   border: 1;
-    padding: 8px;
+  #categories td, #categories th {
+    border: 1px;
+    padding: 9px;
   }
   
-  #customers tr:nth-child(even){background-color: #386d57;}
+  #categories tr:nth-child(even){background-color: #386d57;}
   
-  /*#customers tr:hover {background-color: rgb(143, 40, 40);}*/
-  
-  #customers th {
+  #categories th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
@@ -224,7 +221,7 @@ html body {
     width: 10%;
   }
 
-  #customers table,#customers th,#customers td {
+  #categories table,#categories th,#categories td {
     border: 2px solid black;
   }
 

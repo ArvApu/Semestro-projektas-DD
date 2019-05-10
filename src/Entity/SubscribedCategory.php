@@ -6,14 +6,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubscribedCategoryRepository")
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="search_idx", columns={"user_id", "category_id"})})
+ * @UniqueEntity( fields={"user", "category"}, errorPath="category", message="This category is already subscribed.")
  */
 class SubscribedCategory
 {
+
      /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -22,37 +27,49 @@ class SubscribedCategory
     private $id;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="subscribedCategories")
      */
-    private $categories = [];
+    private $user;
 
     /**
-     * @ORM\Column(type="json")
+     * @return mixed
      */
-    private $matching;
-
-    public function getCategories(): array
+    public function getUser()
     {
-        $categories = $this->categories;
-
-        return array_unique($categories);
+        return $this->user;
     }
 
-    public function setCategories(array $categories): self
+    /**
+     * @param mixed $user
+     */
+    public function setUser(User $user): self
     {
-        $this->categories = $categories;
-
+        $this->user = $user;
+        //arba be :self ir returna
         return $this;
     }
 
-    public function getMatching(): ?int
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="subscribedCategories")
+     *
+     */
+    private $category;
+
+        /**
+     * @return mixed
+     */
+    public function getCategory()
     {
-        return $this->matching;
+        return $this->category;
     }
 
-    public function setMatching(int $matching): self
+    /**
+     * @param mixed $category
+     */
+       public function setCategory(?Category $category): self
     {
-        $this->matching = $matching;
+        $this->category = $category;
 
         return $this;
     }

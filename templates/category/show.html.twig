@@ -4,7 +4,7 @@
 {% block body %}
 
         {% for category in categories %}
-<table id="customers">
+<table id="categories">
   <tr>
     <th>Kategorija</th>
     <th>Parinktys</th>
@@ -26,5 +26,12 @@
 </table>
 
         {% endfor %}
+
+        {% for message in app.flashes('success') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+{% endfor %}
 {% endblock %}
+
 
