@@ -38,6 +38,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+    
+    /**
+     * @var string
+     *
+     * @Assert\Length(
+     *     min=6,
+     *     minMessage = "Slaptažodis turi buti {{ limit }} simbuliu ilgio"
+     * )
+     */
+    private $newPassword;
 
     /**
      * @ORM\Column(name="passwordResetToken", type="string", length=255, nullable=true)
@@ -150,6 +160,21 @@ class User implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNewPassword()
+    {
+        return $this->newPassword;
+    }
+    /**
+     * @param string $newPassword
+     */
+    public function setNewPassword(string $newPassword)
+    {
+        $this->newPassword = $newPassword;
     }
 
     /**
