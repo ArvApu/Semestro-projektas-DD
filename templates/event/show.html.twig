@@ -72,7 +72,11 @@
                             <img src="{{ comment.author.getAvatarUrl(100) }}" alt="AvatarPic">
                         </span>
                         <div class="media-body">
-                            <h4 class="media-heading">{{ comment.author }}</h4>
+                            <h4 class="media-heading">{{ comment.author }}
+                                <a href="{{ path('comment_delete', { commentId: comment.id } ) }}">
+                                    <i class="fa fa-trash ml-2 comment-delete" aria-hidden="true"></i>
+                                </a>
+                            </h4>
                             {{ comment.text }}
                         </div>
                     </li>
