@@ -22,9 +22,6 @@ class RecoverController extends AbstractController
      */
     public function remindPassword(Request $request, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {
-//        if ($authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
-//            return $this->redirectToRoute('index');
-//        }
         $error="";
         $user = new ForgotPassword();
         $form = $this->createForm(ForgotPasswordType::class, $user);

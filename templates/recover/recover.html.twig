@@ -5,8 +5,6 @@
 {% block body %}
     <form method="post">
     <div class="container">
-         {# <h1 class="h3 mb-3 font-weight-normal">Įrašykite naują slaptažodį</h1> #}
-        {# alerts rendering #}
         {% set formErrors = form.vars.errors.form.getErrors(true) %}
         {{ parent() }}
 
