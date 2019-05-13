@@ -39,12 +39,6 @@ class User implements UserInterface
      */
     private $password;
 
-//    /**
-//     * @var string The hashed password
-//     * @ORM\Column(type="string")
-//     */
-//    private $newPassword;
-
     /**
      * @ORM\Column(name="passwordResetToken", type="string", length=255, nullable=true)
      * @Assert\Type("string")
