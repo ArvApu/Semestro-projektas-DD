@@ -73,9 +73,11 @@
                         </span>
                         <div class="media-body">
                             <h4 class="media-heading">{{ comment.author }}
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('comment_delete', { commentId: comment.id } ) }}">
                                     <i class="fa fa-trash ml-2 comment-delete" aria-hidden="true"></i>
                                 </a>
+                                {% endif %}
                             </h4>
                             {{ comment.text }}
                         </div>
