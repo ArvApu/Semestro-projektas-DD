@@ -27,6 +27,25 @@
                                 <span class="btn-label"><i class="fa fa-pencil"></i></span>Update
                             </a>
                         </div>
+
+                            {% for subcategory in subcategories %}
+                                    <table id="categories">
+                                        <tr>
+                                            <th>Kategorija</th>
+                                        </tr>
+                                        <tr>
+                                   
+                                            <td>{{subcategory.name}}</td>
+                                        </tr>
+                                    </table>
+                            {% endfor %}
+
+                            {% for message in app.flashes('success') %}
+                                <div class="flash-notice">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+
                     </div>
                 </div>
                 <div class="row overview">

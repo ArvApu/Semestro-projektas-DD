@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\User;
-use App\Entity\SubscribedCategory;
+use App\Entity\Event;
 use App\Form\SubscribedCategoryType;
 use App\Form\CategoryType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -36,8 +36,8 @@ class CategoryController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
-
-            return new RedirectResponse($urlGenerator->generate('app_category_create'));
+            
+            return new RedirectResponse($urlGenerator->generate('category_show'));
         }
 
         return $this->render('category/create.html.twig', [
@@ -48,14 +48,13 @@ class CategoryController extends AbstractController
     /**
      * @Route("categories", name="category_show")
      */
-    public function show()
+    public function show(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Category::class);
         $categories = $repository->findAll();
 
         $repository2 = $this->getDoctrine()->getRepository(User::class);
         $users = $repository2->findAll();
-
 
         return $this->render('category/show.html.twig', [
             "categories" => $categories]);
@@ -65,19 +64,27 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/{id}/delete", name="category_delete")  
      */
-    public function categoryRemoveAction($id)
+    public function categoryRemoveAction(Category $category)
     {
-        $category = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->find($id);
-
         $em = $this->getDoctrine()->getManager();
-        $em->remove($category);
-        $em->flush();
+            
+        $repository = $this->getDoctrine()->getRepository(Event::class);
+        $events = $repository->findAll();
+             
 
-        // Redirect to the table page
+        if(!$category->getEvents()->isEmpty())
+        {
+            $this->get('session')->getFlashBag()->add(
+                'error',
+                'This category is used in other events!');
+        }
+        else
+        {
+            $em->remove($category);
+            $em->flush();
+        }
+
         return $this->redirect($this->generateUrl('category_show'));
-        
     }
 
     /**
@@ -105,47 +112,37 @@ class CategoryController extends AbstractController
         
     }
 
-    /**
+        /**
      * @Route("categories/{id}/subscribe", name="category_subscribe")
      */
     public function subscribe($id, UserInterface $user)
     {
-        try{
-            $categories = new Category();
-            $categories = $this->getDoctrine()->getRepository(Category::class)->find($id);
-        
-            $entityManager = $this->getDoctrine()->getManager();
-        
-            $subscribedCategory = new SubscribedCategory();
-        
-            $userId = $user->getId(); 
-        
-          //  $userr = new User();
-           // $userr = $this->getDoctrine()->getRepository(User::class)->find($userId);
-        
-            $subscribedCategory->setUser($user);
-            $subscribedCategory->setCategory($categories);
-        
-            $entityManager->persist($subscribedCategory);
-            $entityManager->flush();
-        
-            return $this->render('category/subscribe.html.twig', ["categories" => $categories]);
-                    }
-        
-            catch(UniqueConstraintViolationException $e){
-                $this->getDoctrine()->resetManager();
-        
-                }
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
 
+        $user->addSubscribedCategory($category);
+        $category->addSubscribedUser($user);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager->flush();
+
+        return $this->render('event/homepage.html.twig', ["events" => $events]);       
     }
 
     /**
      * @Route("categories/{id}/unsubscribe", name="category_unsubscribe")
      */
-    public function unsubscribe($id, UserInterface $user)
+    public function unsubscribe(Category $category, UserInterface $user)
     {
-        $category = new Category();
-        $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        $user->removeSubscribedCategory($category);
+        $category->removeSubscribedUser($user);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->render('event/homepage.html.twig', ["events" => $events]);
+        
     }
     
 }

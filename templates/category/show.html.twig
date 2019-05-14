@@ -3,35 +3,33 @@
 
 {% block body %}
 
+{% for flashMessage in app.session.flashbag.get('error') %}
+
+    <div class="alert alert-danger flash-notice">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+
         {% for category in categories %}
 <table id="categories">
   <tr>
     <th>Kategorija</th>
-    <th>Parinktys</th>
     {% if is_granted('ROLE_ADMIN') %}
     <th>Veiksmai</th>
     {% endif %}
   </tr>
   <tr>
     <td>{{category.name}}</td>
-    <td style="width:34%;"><a href="{{ path('category_subscribe', { id: category.id} ) }}">Prenumeruoti<span ></a>
-    <a href="{{ path('category_unsubscribe', { id: category.id} ) }}">Atšaukti prenumeratą<span ></a>
-    </td>
     {% if is_granted('ROLE_ADMIN') %}
-    <td style="width:34%;"><a href="{{ path('category_edit', { id: category.id} ) }}">Koreguoti <span ></a>
-    <a href="{{ path('category_delete', { id: category.id} ) }}">Ištrinti <span ></a>
+    <td style="width:34%;"><a href="{{ path('category_edit', { id: category.id} ) }}">Koreguoti <i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <a href="{{ path('category_delete', { id: category.id} ) }}">Ištrinti <i class="fa fa-minus-circle" aria-hidden="true"></i></a>
     </td>
     {% endif %}
   </tr>
 </table>
 
         {% endfor %}
-
-        {% for message in app.flashes('success') %}
-    <div class="flash-notice">
-        {{ message }}
-    </div>
-{% endfor %}
 {% endblock %}
 
 

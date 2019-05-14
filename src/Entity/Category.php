@@ -28,9 +28,15 @@ class Category
      */
     private $events;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="subscribedCategories")
+     */
+    private $subscribedUsers;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->subscribedUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,5 +91,31 @@ class Category
     public function __toString(): string
     {
         return $this->name;
+    }
+
+            /**
+     * @return mixed
+     */
+    public function getSubscribedUsers()
+    {
+        return $this->subscribedUsers;
+    }
+
+    /**
+     * @param mixed $category
+     */
+       public function addSubscribedUser(?User $user)
+    {
+        if(!$this->getSubscribedUsers()->contains($user))
+        $this->getSubscribedUsers()->add($user);
+    }
+
+        /**
+     * @param mixed $category
+     */
+    public function removeSubscribedUser(?User $user)
+    {
+        if($this->getSubscribedUsers()->contains($user))
+        $this->getSubscribedUsers()->removeElement($user);
     }
 }

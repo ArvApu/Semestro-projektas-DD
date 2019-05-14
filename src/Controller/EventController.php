@@ -16,6 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
+use App\Entity\User;
+use App\Entity\Category;
 
 class EventController extends AbstractController
 {
@@ -23,7 +25,7 @@ class EventController extends AbstractController
     /**
      * @Route("/admin/event/new", name="create_event")
      */
-    public function addEvent(Request $request, UrlGeneratorInterface $urlGenerator)
+    public function addEvent(Request $request, UrlGeneratorInterface $urlGenerator, \Swift_Mailer $mailer)
     {
         $event = new Event();
 
@@ -38,13 +40,26 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
 
+            $users = new User();
+            $categories = new Category();
+            $users->getSubscribedCategories();
+            $categories->getSubscribedUsers();
+
+            foreach ($categories as $member) {
+                
+                $message = (new \Swift_Message('New event has been added to your subscribed category!'))
+                ->setFrom('semestroprojektasdd@gmail.com')
+                ->setTo($member->getUser()->getEmail())
+                ;
+                $mailer->send($message);
+            }
+
             return new RedirectResponse($urlGenerator->generate('app_homepage'));
         }
 
         return $this->render('event/create.html.twig', [
             'form' => $form->createView(),
         ]);
-
     }
 
     /**
@@ -96,7 +111,7 @@ class EventController extends AbstractController
      * @Route("event/{eventId}", name="event_show")
      */
     public function show($eventId)
-    {
+    {    
         $repository = $this->getDoctrine()->getRepository(Event::class);
         $event = $repository->findOneBy(['id' => $eventId]);
 
