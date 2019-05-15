@@ -19,7 +19,10 @@
             <button class="btn btn-labeled btn-info"><i class="fa fa-pencil"></i>Atnaujinti</button>
 
             {{ form_end(form) }}
-        </div>
+            <br>
+            <a class="btn btn-labeled btn-info" href="{{ path('app_changePassword') }}">
+                <span class="btn-label"></span>Pakeisti slaptažodį
+            </a>
     </div>
 {% endblock %}
 
