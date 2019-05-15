@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Form\CommentFormType;
 use App\Form\EventFormType;
+use App\Repository\CommentRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,21 +51,10 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("event/{eventId}", name="event_show")
+     * @Route("event/{id}", name="event_show")
      */
-    public function show(Request $request, $eventId)
+    public function show(Request $request, Event $event, CommentRepository $repository)
     {
-
-        $repository = $this->getDoctrine()->getRepository(Event::class);
-        $event = $repository->findOneBy(['id' => $eventId]);
-
-        $repository = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repository->findBy(['event' => $event->getId()],['id' => 'DESC']);
-
-        if (!$event) {
-            throw $this->createNotFoundException(sprintf('No event with id "%s"', $eventId));
-        }
-
         $comment = new Comment();
 
         $form = $this->createForm(CommentFormType::class, $comment);
@@ -85,7 +75,7 @@ class EventController extends AbstractController
         return $this->render('event/show.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
-            'comments' => $comments
+            'comments' => $repository->findBy(['event' => $event->getId()],['id' => 'DESC']),
         ]);
     }
 }
