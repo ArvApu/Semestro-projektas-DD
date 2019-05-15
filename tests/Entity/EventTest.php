@@ -9,15 +9,9 @@ class EventTest extends TestCase
 {
     public function testGetDateMonth()
     {
-        $months = ["Sau","Vas","Kov","Bal","Geg","Bir","Lie","Rgp","Rgs","Spa","Lap","Gru"];
         $event = new Event();
-
-        $i = 1;
-        foreach ($months as $month)
-        {
-            $result = $event->getDateMonth($i++);
-            $this->assertEquals($month,$result);
-        }
-
+        $event->setDate(new \DateTime("2019-05-02"));
+        $result = $event->getDateMonth();
+        $this->assertEquals("Geg",$result);
     }
 }
