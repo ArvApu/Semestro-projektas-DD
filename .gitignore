@@ -52,3 +52,7 @@
 /.web-server-pid
 
 /.idea
+
+.vs/ProjectSettings.json
+.vs/VSWorkspaceState.json
+.vscode

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Entity\Event;
-use App\Form\SubscribedCategoryType;
 use App\Form\CategoryType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +20,7 @@ use Symfony\Component\Validator\Validation;
 
 class CategoryController extends AbstractController
 {
+    
     /**
      * @Route("/admin/category/new", name="app_category_create")
      */
@@ -53,13 +53,10 @@ class CategoryController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Category::class);
         $categories = $repository->findAll();
 
-        $repository2 = $this->getDoctrine()->getRepository(User::class);
-        $users = $repository2->findAll();
-
         return $this->render('category/show.html.twig', [
-            "categories" => $categories]);
+            "categories" => $categories
+        ]);
     }
-
 
     /**
      * @Route("/category/{id}/delete", name="category_delete")  
@@ -68,10 +65,6 @@ class CategoryController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
             
-        $repository = $this->getDoctrine()->getRepository(Event::class);
-        $events = $repository->findAll();
-             
-
         if(!$category->getEvents()->isEmpty())
         {
             $this->get('session')->getFlashBag()->add(
@@ -108,16 +101,14 @@ class CategoryController extends AbstractController
 
         return $this->render('category/edit.html.twig', [
             'form' => $form->createView(),
-        ]);
-        
+        ]);       
     }
 
-        /**
+    /**
      * @Route("categories/{id}/subscribe", name="category_subscribe")
      */
     public function subscribe($id, UserInterface $user)
     {
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
         $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
 
@@ -128,7 +119,9 @@ class CategoryController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->render('event/homepage.html.twig', ["events" => $events]);       
+        return $this->render('event/homepage.html.twig', [
+            "events" => $events
+        ]);       
     }
 
     /**
@@ -137,12 +130,14 @@ class CategoryController extends AbstractController
     public function unsubscribe(Category $category, UserInterface $user)
     {
         $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+
         $user->removeSubscribedCategory($category);
         $category->removeSubscribedUser($user);
+
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->render('event/homepage.html.twig', ["events" => $events]);
-        
-    }
-    
+        return $this->render('event/homepage.html.twig', [
+            "events" => $events
+        ]);            
+    }    
 }

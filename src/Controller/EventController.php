@@ -40,16 +40,28 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
 
-            $users = new User();
+            $to = array();
+
             $categories = new Category();
-            $users->getSubscribedCategories();
-            $categories->getSubscribedUsers();
+            $categories = $event->getCategory()->getSubscribedUsers();
 
             foreach ($categories as $member) {
-                
-                $message = (new \Swift_Message('New event has been added to your subscribed category!'))
+                $to[] = $member->getEmail();
+
+                $message = (new \Swift_Message('Pridėtas naujas renginys'))
                 ->setFrom('semestroprojektasdd@gmail.com')
-                ->setTo($member->getUser()->getEmail())
+                ->setTo($to)
+                ->setBody(
+                $this->renderView(
+                    'emails/newevent.html.twig',
+                    array(
+                        'category' => $event->getCategory()->getName(),
+                        'event' => $event->getTitle(),
+                        'description' => $event->getDescription()
+                    )
+                ),
+                'text/html'
+            )
                 ;
                 $mailer->send($message);
             }
@@ -76,8 +88,7 @@ class EventController extends AbstractController
         $em->flush();
 
         // Redirect to the table page
-        return $this->redirect($this->generateUrl('app_homepage'));
-        
+        return $this->redirect($this->generateUrl('app_homepage'));       
     }
 
     /**
@@ -103,8 +114,7 @@ class EventController extends AbstractController
 
         return $this->render('event/edit.html.twig', [
             'form' => $form->createView(),
-        ]);
-        
+        ]);        
     }
 
     /**

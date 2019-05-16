@@ -250,7 +250,7 @@ class User implements UserInterface
         return $url;
     }
 
-                /**
+    /**
      * @return mixed
      */
     public function getSubscribedCategories()
@@ -261,13 +261,13 @@ class User implements UserInterface
     /**
      * @param mixed $category
      */
-       public function addSubscribedCategory(Category $category)
+    public function addSubscribedCategory(Category $category)
     {
         if(!$this->getSubscribedCategories()->contains($category))
         $this->getSubscribedCategories()->add($category);
     }
 
-        /**
+    /**
      * @param mixed $category
      */
     public function removeSubscribedCategory(Category $category)

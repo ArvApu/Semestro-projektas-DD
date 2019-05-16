@@ -87,13 +87,12 @@ class Category
         return $this;
     }
 
-
     public function __toString(): string
     {
         return $this->name;
     }
 
-            /**
+    /**
      * @return mixed
      */
     public function getSubscribedUsers()
@@ -104,13 +103,13 @@ class Category
     /**
      * @param mixed $category
      */
-       public function addSubscribedUser(?User $user)
+    public function addSubscribedUser(?User $user)
     {
         if(!$this->getSubscribedUsers()->contains($user))
         $this->getSubscribedUsers()->add($user);
     }
 
-        /**
+    /**
      * @param mixed $category
      */
     public function removeSubscribedUser(?User $user)
