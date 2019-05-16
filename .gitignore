@@ -53,6 +53,4 @@
 
 /.idea
 
-.vs/ProjectSettings.json
-.vs/VSWorkspaceState.json
-.vscode
+.vs/
