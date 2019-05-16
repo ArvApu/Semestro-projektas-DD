@@ -4,6 +4,11 @@
 
 {% block body %}
     <form method="post">
+
+    <div class="container">
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {{ parent() }}
+
         {% if error is defined and error is not empty %}
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Klaida!</strong> {{ error }}
@@ -32,7 +37,6 @@
             Naujas slaptažodis: {{ form_widget(form.password.first) }}<br />
             Pakartokite naują slaptažodį: {{ form_widget(form.password.second) }}<br />
         {% endif %}
-        {# {{ form_start(form) }} #}
         {{ form_errors(form) }}
         {{ form(form, {'method': 'POST'}) }}
     </div>

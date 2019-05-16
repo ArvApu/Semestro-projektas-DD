@@ -23,6 +23,6 @@ class CommentController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em-> remove($comment);
         $em->flush();
-        return $this->redirect($this->generateUrl('event_show',['eventId' => $eventId]));
+        return $this->redirect($this->generateUrl('event_show',['id' => $eventId]));
     }
 }
