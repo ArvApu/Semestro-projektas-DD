@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -18,4 +19,12 @@ class EventRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Event::class);
     }
+
+    public function getWithSearchQueryBuilder(): QueryBuilder
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        return  $qb->select('u')->from($this->_entityName, 'u');
+    }
+
 }
