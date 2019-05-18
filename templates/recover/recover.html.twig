@@ -32,7 +32,6 @@
             Naujas slaptažodis: {{ form_widget(form.password.first) }}<br />
             Pakartokite naują slaptažodį: {{ form_widget(form.password.second) }}<br />
         {% endif %}
-        {# {{ form_start(form) }} #}
         {{ form_errors(form) }}
         {{ form(form, {'method': 'POST'}) }}
     </div>

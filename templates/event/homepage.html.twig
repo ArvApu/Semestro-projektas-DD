@@ -1,7 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<div class="divide">
+    <div class="left">
+        <h1>Filtruoti pagal</h1>
+        {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.description) }}
+            {# {{ form_row(form.date_from) }}
+            {{ form_row(form.date_to) }} #}
+            {{ form_row(form.price) }}
+            {{ form_row(form.location) }}
+            <button class="btn btn-primary">Filtruoti</button>
+        {{ form_end(form) }}
+    </div>
+    <div class="right">
         {% for event in events %}
 
             <div class="container">
@@ -30,7 +44,7 @@
                                                     €{{ event.price }}
                                                 {% endif %}
                                             <span class="fa fa-tag"></span></li>
-                                        <li style="width:34%;"><a href="{{ path('event_show', { eventId: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
+                                        <li style="width:34%;"><a href="{{ path('event_show', { id: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
                                     </ul>
                                     </a>
                                 </div>
@@ -40,5 +54,7 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
+</div>
 {% endblock %}
 

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Repository\DateTime;
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,32 +20,36 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getEventsByCriteria(?string $title, ?string $category, ?string $description, ?DateTime $date_from, ?DateTime $date_to, ?string $price, ?string $location)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('e')->leftJoin('e.category', 'c');
 
-    /*
-    public function findOneBySomeField($value): ?Event
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if($title){
+            $qb->andWhere($qb->expr()->like('e.title', ':title'))
+                ->setParameter('title', '%'. $title. '%');
+        }
+        if($category){
+            $qb->andWhere($qb->expr()->like('c.id', ':category'))
+                ->setParameter('category', $category);
+        }
+        if($description){
+            $qb->andWhere($qb->expr()->like('e.description', ':description'))
+                ->setParameter('description', '%'. $description. '%');
+        }
+        if($date_from && $date_to){
+            $qb->andWhere($qb->expr()->between('e.date', ':date_from', ':date_to'))
+                ->setParameter('date_from', $date_from, \Doctrine\DBAL\Types\Type::DATETIME)
+                ->setParameter('date_to', $date_to, \Doctrine\DBAL\Types\Type::DATETIME);
+        }
+        if($price){
+            $qb->andWhere($qb->expr()->like('e.price', ':price'))
+                ->setParameter('price', $price);
+        }
+        if($location){
+            $qb->andWhere($qb->expr()->like('e.location', ':location'))
+                ->setParameter('location', '%'. $location. '%');
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }

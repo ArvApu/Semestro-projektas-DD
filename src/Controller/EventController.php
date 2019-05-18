@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: arvapu
- * Date: 19.3.28
- * Time: 13.48
- */
 
 namespace App\Controller;
 
@@ -18,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
 use App\Entity\Comment;
+use App\Repository\CommentRepository;
 
 class EventController extends AbstractController
 {
@@ -50,21 +45,10 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("event/{eventId}", name="event_show")
+     * @Route("event/{id}", name="event_show")
      */
-    public function show(Request $request, $eventId)
-    {
-
-        $repository = $this->getDoctrine()->getRepository(Event::class);
-        $event = $repository->findOneBy(['id' => $eventId]);
-
-        $repository = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repository->findBy(['event' => $event->getId()],['id' => 'DESC']);
-
-        if (!$event) {
-            throw $this->createNotFoundException(sprintf('No event with id "%s"', $eventId));
-        }
-
+    public function show(Request $request, Event $event, CommentRepository $repository)
+    { 
         $comment = new Comment();
 
         $form = $this->createForm(CommentFormType::class, $comment);
@@ -85,7 +69,7 @@ class EventController extends AbstractController
         return $this->render('event/show.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
-            'comments' => $comments
+            'comments' => $repository->findBy(['event' => $event->getId()],['id' => 'DESC']),
         ]);
     }
 }
