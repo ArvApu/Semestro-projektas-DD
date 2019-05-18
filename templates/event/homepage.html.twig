@@ -3,7 +3,7 @@
 {% block body %}
 <div class="divide">
     <div class="left">
-        <h1>Filtruoti pagal</h1>
+        <h2>Filtruoti pagal</h2>
         {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
             {{ form_row(form.title) }}
             {{ form_row(form.category) }}
@@ -15,7 +15,7 @@
             <button class="btn btn-primary">Filtruoti</button>
         {{ form_end(form) }}
     </div>
-    <div class="right">{#"container" #}
+    <div class="container">
         {% for event in events %}
 
                 <div class="row">

@@ -50,8 +50,7 @@ class EventRepository extends ServiceEntityRepository
             $qb->andWhere($qb->expr()->like('e.location', ':location'))
                 ->setParameter('location', '%'. $location. '%');
         }
-
-        return $qb->getQuery();
+        return $qb;
     }
 
     public function getWithSearchQueryBuilder(): QueryBuilder

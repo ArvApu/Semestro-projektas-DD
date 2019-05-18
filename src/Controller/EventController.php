@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
 use App\Entity\Comment;
-use App\Repository\CommentRepository;
 
 class EventController extends AbstractController
 {
