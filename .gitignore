@@ -28,6 +28,7 @@
 /var/bootstrap.php.cache
 /bin/*
 !bin/console
+!bin/phpunit
 !bin/symfony_requirements
 /vendor/
 
@@ -52,3 +53,21 @@
 /.web-server-pid
 
 /.idea
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###

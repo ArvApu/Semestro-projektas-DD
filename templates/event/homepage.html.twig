@@ -15,13 +15,12 @@
             <button class="btn btn-primary">Filtruoti</button>
         {{ form_end(form) }}
     </div>
-    <div class="right">
+    <div class="right">{#"container" #}
         {% for event in events %}
 
-            <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <ul class="event-list">
+                        <ul class="event-list" onclick="labas()">
                             <li>
                                 <time datetime="{{ event.date|date('Y-m-d')}}">
                                     <span class="day">{{ event.date|date('d')}}</span>
@@ -52,8 +51,12 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+
         {% endfor %}
+        <div class="for-pages">
+            {{ knp_pagination_render(events) }}
+        </div>
+
     </div>
 </div>
 {% endblock %}

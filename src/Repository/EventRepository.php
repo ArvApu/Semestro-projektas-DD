@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Repository\DateTime;
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -20,7 +21,7 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function getEventsByCriteria(?string $title, ?string $category, ?string $description, ?DateTime $date_from, ?DateTime $date_to, ?string $price, ?string $location)
+    public function getEventsByCriteria(?string $title, ?string $category, ?string $description, ?DateTime $date_from, ?DateTime $date_to, ?string $price, ?string $location): QueryBuilder
     {
         $qb = $this->createQueryBuilder('e')->leftJoin('e.category', 'c');
 
@@ -50,6 +51,14 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('location', '%'. $location. '%');
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery();
     }
+
+    public function getWithSearchQueryBuilder(): QueryBuilder
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        return  $qb->select('u')->from($this->_entityName, 'u');
+    }
+
 }

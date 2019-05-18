@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Form\CommentFormType;
 use App\Form\EventFormType;
+use App\Repository\CommentRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,7 +49,7 @@ class EventController extends AbstractController
      * @Route("event/{id}", name="event_show")
      */
     public function show(Request $request, Event $event, CommentRepository $repository)
-    { 
+    {
         $comment = new Comment();
 
         $form = $this->createForm(CommentFormType::class, $comment);
