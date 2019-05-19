@@ -12,7 +12,7 @@ img {
 }
 
 html body {
-    background-color: #daebbf
+    background-color: #c7cbd4;
 }
 
 .comment-delete {
@@ -25,7 +25,7 @@ html body {
 }
 
 .bg-hot {
-    background-color: #631a15
+    background-color: #631a15;
 }
 
 .center_div{
@@ -170,7 +170,7 @@ ul.pagination li:last-child {
         display: block;
         width: 100%;
         height: 120px;
-        padding: 0px;
+        padding: 0px 0px 0px 100px;
         margin: 10px;
     }
     .event-list > li > time,
@@ -227,4 +227,61 @@ ul.pagination li:last-child {
         width: 40px;
         padding: 10px 0px 9px;
     }
+  
+    .divide {
+        display: flex;
+    }
+    .left {
+        position: fixed;
+        left: 0;
+        width: 250px;
+        font-size: 11pt;
+        flex: 10%;
+    }
 }
+
+.center-filters {
+    display: flex;
+    justify-content: space-around;
+    background: #631a15;
+    height: 100px;
+    color: white;
+    border-top: 2px solid #313131;
+}
+
+.center-filters div{
+    margin-right: 15px;
+}
+
+.center-filters div .input-group-prepend{
+    margin-right: 0;
+}
+
+#categories {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin:30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #categories td, #categories th {
+    border: 1px;
+    padding: 9px;
+  }
+  
+  #categories tr:nth-child(even){background-color: #e2d7d7;}
+  
+  #categories th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #e2d7d7;
+    color: black;
+    width: 10%;  
+  }
+
+  #categories table,#categories th,#categories td {
+    border: 2px solid black;
+  }

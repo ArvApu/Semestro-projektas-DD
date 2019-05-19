@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+        {% for category in categories %}
+<table id="categories">
+  <tr>
+    <th>Id</th>
+    <th>Kategorija</th>
+    <th>Parinktys</th>
+  </tr>
+  <tr>
+    <td>{{category.id}}</td>
+    <td>{{category.name}}</td>
+  </tr>
+</table>
+
+        {% endfor %}
+{% endblock %}
