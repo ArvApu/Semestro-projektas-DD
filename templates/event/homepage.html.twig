@@ -2,10 +2,19 @@
 
 {% block body %}
 
+    <div class="center-filters">
+        {{ form_start(form, { attr: {novalidate: 'novalidate', class: 'form-inline'} }) }}
+        <div>{{ form_row(form.title) }}</div>
+        <div>{{ form_row(form.category) }}</div>
+        <div>{{ form_row(form.description) }}</div>
+        <div>{{ form_row(form.price) }}</div>
+        <div>{{ form_row(form.location) }}</div>
+        <button class="btn btn-primary">Filtruoti</button>
+        {{ form_end(form) }}
+    </div>
     <div class="container">
 
         {% for event in events %}
-
                 <div class="row">
                     <div class="col-sm">
                         <ul class="event-list">
