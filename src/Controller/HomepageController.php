@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Event;
+use App\Repository\DateTime;
+use App\Form\EventFilterType;
 
 class HomepageController extends AbstractController
 {
@@ -17,7 +20,16 @@ class HomepageController extends AbstractController
      */
     public function homepage(Request $request, EventRepository $repository, PaginatorInterface $paginator)
     {
-        $queryBuilder = $repository->getWithSearchQueryBuilder();
+        $form = $this->createForm(EventFilterType::class);
+        $form->handleRequest($request);
+        $repository = $this->getDoctrine()->getRepository(Event::class);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $params = $request->request->all()['event_filter'];
+            $queryBuilder = $repository->getEventsByCriteria($params['title'], $params['category'], $params['description'], /*$params['date_from']*/null, /*$params['date_to']*/null, $params['price'], $params['location']);
+        } else {
+            $queryBuilder = $repository->getWithSearchQueryBuilder();
+        }
 
         $pagination = $paginator->paginate(
             $queryBuilder, /* query NOT result */
@@ -26,7 +38,8 @@ class HomepageController extends AbstractController
         );
 
         return $this->render('event/homepage.html.twig', [
-            "events" => $pagination
+            "events" => $pagination,
+            'form' => $form->createView(),
         ]);
     }
 }
