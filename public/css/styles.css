@@ -1,10 +1,27 @@
+* {
+    outline: none;
+}
+
+textarea {
+    resize: none !important;
+}
+
 img {
     width: 60px;
     height: 60px;
 }
 
 html body {
-    background-color: #daebbf
+    background-color: #c7cbd4;
+}
+
+.comment-delete {
+    font-size: 20px !important;
+    color: #868686;
+}
+.comment-delete:hover {
+    cursor: pointer;
+    color: #dc3545;
 }
 
 .bg-hot {
@@ -130,6 +147,21 @@ html body {
 .event-list > li > .social > ul > li:hover {
     color: rgb(30, 30, 30);
     background-color: rgb(200, 200, 200);
+}
+
+ul.pagination li:first-child,
+ul.pagination li:last-child {
+    /* display: none; */
+}
+
+.for-pages {
+    margin-top: 20px;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+
 }
 
 @media (min-width: 768px) {

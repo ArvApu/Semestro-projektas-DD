@@ -2,10 +2,10 @@
 
 {% block body %}
 
+    <div class="container">
+
         {% for event in events %}
 
-{#            <a href="{{ path('event_show', { eventId: event.id } ) }}"> Daugiau info</a>#}
-            <div class="container">
                 <div class="row">
                     <div class="col-sm">
                         <ul class="event-list">
@@ -16,12 +16,10 @@
                                     <span class="year">{{ event.date|date('Y')}}</span>
                                     <span class="time">{{ event.date|date('H:i')}}</span>
                                 </time>
-                                {#                    <img alt="Disney Junior Live On Tour!" src="http://www.thechaifetzarena.com/images/main/DL13_PiratePrincess_thumb.jpg" />#}
                                 <div class="info">
-                                    <h2 class="title">{{ event.title }}!</h2>
+                                    <h2 class="title">{{ event.title }}</h2>
                                     <p class="desc">
                                         {{ event.description|length > 100 ? event.description|slice(0, 100) ~ '...' : event.description  }}
-
                                     </p>
 
                                     <ul>
@@ -31,19 +29,25 @@
                                                 {% else %}
                                                     €{{ event.price }}
                                                 {% endif %}
-                                            <span class="fa fa-tag"></span></li>
-                                        <li style="width:20%;"><a href="{{ path('event_show', { eventId: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
-                                        {% if app.user %}
-                                    {% if not app.user.hasSubscribedCategory(event.getCategory()) %}
-                                         <li style="width:20%;"><a href="{{ path('category_subscribe', { id: event.getCategory().id} ) }}"">Prenumeruoti <i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                                            <span class="fa fa-tag"></span>
+                                        </li>
+                                        <li style="width:34%;"><a href="{{ path('event_show', { id: event.id } ) }}">Plačiau <span class="fa fa-info-circle"></span></a></li>
 
-                                          {% else %}                             
-                                                                                    <li style="width:20%;"><a href="{{ path('category_unsubscribe', { id: event.getCategory().id} ) }}"">Atsaukti prenumerata <i class="fa fa-bell" aria-hidden="true"></i></a></li>  
+                                        {% if app.user and not is_granted('ROLE_ADMIN') %}
+                                            {% if not app.user.hasSubscribedCategory(event.getCategory()) %}
+                                                <li style="width:20%;">
+                                                    <a href="{{ path('category_subscribe', { id: event.getCategory().id} ) }}">
+                                                        Prenumeruoti <i class="fa fa-bell" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                            {% else %}
+                                                 <li style="width:20%;"><a href="{{ path('category_unsubscribe', { id: event.getCategory().id} ) }}"">Atsaukti prenumerata <i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                                            {% endif %}
                                         {% endif %}
-                                        {% endif %}
+
                                         {% if is_granted('ROLE_ADMIN') %}
-                                        <li style="width:12%;"><a href="{{ path('event_delete', {'id': event.id}) }}" >Ištrinti <i class="fa fa-minus-circle" aria-hidden="true"></i></a></li>
-                                        <li style="width:12%;"><a href="{{ path('event_edit', {'id': event.id}) }}">Koreguoti <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                            <li style="width:12%;"><a href="{{ path('event_delete', {'id': event.id}) }}" >Ištrinti <i class="fa fa-minus-circle" aria-hidden="true"></i></a></li>
+                                            <li style="width:12%;"><a href="{{ path('event_edit', {'id': event.id}) }}">Koreguoti <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                         {% endif %}
                                     </ul>
                                     </a>
@@ -52,7 +56,13 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+
         {% endfor %}
 
+        <div class="for-pages">
+            {{ knp_pagination_render(events) }}
+        </div>
+
+    </div>
 {% endblock %}
+

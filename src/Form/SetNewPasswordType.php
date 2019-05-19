@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marius
- * Date: 2019-04-13
- * Time: 11:48
- */
 
 namespace App\Form;
 
