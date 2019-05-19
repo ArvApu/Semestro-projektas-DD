@@ -1,21 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="divide">
-    <div class="left">
-        <h2>Filtruoti pagal</h2>
-        {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
-            {{ form_row(form.title) }}
-            {{ form_row(form.category) }}
-            {{ form_row(form.description) }}
-            {{ form_row(form.price) }}
-            {{ form_row(form.location) }}
-            <button class="btn btn-primary">Filtruoti</button>
+
+    <div class="center-filters">
+        {{ form_start(form, { attr: {novalidate: 'novalidate', class: 'form-inline'} }) }}
+        <div>{{ form_row(form.title) }}</div>
+        <div>{{ form_row(form.category) }}</div>
+        <div>{{ form_row(form.description) }}</div>
+        <div>{{ form_row(form.price) }}</div>
+        <div>{{ form_row(form.location) }}</div>
+        <button class="btn btn-primary">Filtruoti</button>
         {{ form_end(form) }}
     </div>
     <div class="container">
-        {% for event in events %}
 
+        {% for event in events %}
                 <div class="row">
                     <div class="col-sm">
                         <ul class="event-list">
@@ -74,6 +73,5 @@
         </div>
 
     </div>
-</div>
 {% endblock %}
 

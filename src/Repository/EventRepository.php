@@ -42,7 +42,8 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('date_from', $date_from, \Doctrine\DBAL\Types\Type::DATETIME)
                 ->setParameter('date_to', $date_to, \Doctrine\DBAL\Types\Type::DATETIME);
         }
-        if($price){
+        if($price || $price == 0){
+            $price = $price == 0 ? "0.00" : $price;
             $qb->andWhere($qb->expr()->like('e.price', ':price'))
                 ->setParameter('price', $price);
         }

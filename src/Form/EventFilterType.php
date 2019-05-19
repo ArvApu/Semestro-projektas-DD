@@ -19,28 +19,28 @@ class EventFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title',TextType::class,  [
-            'label' => 'Pavadinimas',
+            'label' => false,
             'attr' => [
                 'placeholder' => 'Filtruoti pagal pavadinima',
             ]])
                 ->add('category', EntityType::class,
                     [
-                        'label' => 'Kategorija',
+                        'label' => false,
                         'placeholder' => 'Pasirinkti kategorija',
                         'class' => Category::class
                     ])
                     ->add('description',TextType::class,  [
-                        'label' => 'Aprašymas',
+                        'label' => false,
                         'attr' => [
                             'placeholder' => 'Filtruoti pagal aprašyma',
                         ]])
                 ->add('price', MoneyType::class, [
-                    "label" => 'Kaina',
+                    "label" => false,
                     'attr' => [
                         'placeholder' => 'Filtruoti pagal kaina',
                     ]])
                 ->add('location',TextType::class,  [
-                    'label' => 'Vieta',
+                    'label' => false,
                     'attr' => [
                         'placeholder' => 'Filtruoti pagal vieta',
                     ]]);
