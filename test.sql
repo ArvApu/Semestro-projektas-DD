@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 16, 2019 at 03:09 PM
+-- Generation Time: May 19, 2019 at 11:18 PM
 -- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.2.17-0ubuntu0.18.04.1
 
@@ -43,9 +43,37 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (5, 'Technologijos'),
 (6, 'Vaikams'),
 (9, 'Art'),
-(10, 'Laisvydavimas'),
+(10, 'Gaudynes'),
 (11, 'Skaitymas'),
-(12, 'Kat1');
+(13, 'Runnio'),
+(15, 'Jayme Tucker');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category_user`
+--
+
+CREATE TABLE `category_user` (
+  `category_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `category_user`
+--
+
+INSERT INTO `category_user` (`category_id`, `user_id`) VALUES
+(1, 28),
+(2, 5),
+(2, 26),
+(2, 28),
+(2, 29),
+(2, 31),
+(4, 26),
+(4, 28),
+(6, 28),
+(11, 28);
 
 -- --------------------------------------------------------
 
@@ -79,20 +107,22 @@ INSERT INTO `comment` (`id`, `event_id`, `author_id`, `text`) VALUES
 (14, 11, 10, '121212132'),
 (15, 11, 10, '5423423'),
 (16, 1, 10, '4984654'),
-(19, 1, 10, 'Saizaaaa'),
 (20, 1, 11, 'Hey'),
 (21, 12, 11, 'Labas'),
 (23, 1, 2, 'Sveiki vis'),
 (25, 1, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu ipsum vulputate, tristique elit id, auctor metus. Fusce sit amet justo non ante porta hendrerit a vitae sapien. Nulla non rhoncus turpis. Vivamus a velit ex. Aliquam ac ante turpis duis.'),
-(26, 1, 2, '\'attr\' => array(\'maxlength\' => 255),\'attr\' => array(\'maxlength\' => 255),\'attr\' => array(\'maxlength\' => 255),\'attr\' => array(\'maxlength\' => 255),\'attr\' => array(\'maxlength\' => 255),\'attr\' => array(\'maxlength\' => 255),\'attr\' => array(\'maxlength\' => 255),\'at'),
 (28, 11, 12, 'Hello'),
 (30, 3, 16, 'Hey hey hey'),
 (31, 12, 16, 'Labas'),
 (35, 14, 19, 'Iusto consequuntur amet quia iure laborum Qui voluptas quisquam sapiente et soluta vel'),
-(36, 1, 20, 'asdasdasd'),
 (37, 1, 20, 'Heyo'),
 (38, 2, 20, 'asdasddas'),
-(39, 1, 21, 'Labas');
+(39, 1, 21, 'Labas'),
+(42, 1, 2, 'ManikMonik!!!'),
+(43, 5, 25, 'Sveiki draugai!'),
+(44, 1, 26, 'Nu labukas'),
+(45, 1, 26, 'Adminui duosiu sita sitrynti'),
+(46, 2, 26, 'hey hey heyy');
 
 -- --------------------------------------------------------
 
@@ -120,11 +150,14 @@ INSERT INTO `event` (`id`, `author_id`, `title`, `description`, `date`, `price`,
 (2, 2, 'Dolore debitis irure', 'Laboris dolor cumque', '2021-05-27 08:03:00', '780.00', 'Fugiat consequuntur', 2),
 (3, 2, 'Commodo commodo aut', 'Enim accusamus quo v', '2024-03-13 08:13:00', '981.00', 'Non sed reprehenderi', 1),
 (4, 2, 'Molestias saepe cons', 'Ad sint sed quo ali', '2017-07-16 23:13:00', '910.00', 'Et temporibus in mag', 1),
-(5, 2, 'Explicabo Adipisci', 'Enim vitae rerum atq', '2015-04-23 13:48:00', '986.00', 'Eos necessitatibus q', 1),
+(5, 2, 'namas', 'Enim vitae rerum atq', '2015-04-23 13:48:00', '0.00', 'Eos necessitatibus q', 1),
 (11, 2, 'Vlagr mohgurklis', 'Veniam nobis except', '2020-11-28 02:33:00', '712.00', 'Maiores deserunt nis', 1),
 (12, 2, 'Ex omnis sed ut repr', 'Excepteur qui numqua', '2014-08-22 14:20:00', '994.00', 'Debitis consequatur', 9),
 (13, 2, 'Sokiams su guma per ozy', 'Jayyyy bus labai labai labai labai labi labi smagu', '2019-03-04 03:42:00', '0.00', 'Laborum ex non et pr', 11),
-(14, 19, 'Id minus perferendi', 'Placeat nobis bland', '2024-01-21 12:14:00', '807.00', 'Minus aute in suscip', 6);
+(14, 19, 'Id minus perferendi', 'Placeat nobis bland', '2024-01-21 12:14:00', '807.00', 'Minus aute in suscip', 6),
+(15, 2, 'Party at the lighthouse', 'Et sapiente ea quam', '2019-09-10 17:35:00', '0.00', 'Litghouse street 100', 4),
+(16, 2, 'Dolorum dolor qui de', 'Eu est rem accusanti', '2021-11-19 05:23:00', '767.00', 'Amet dicta hic accu', 13),
+(19, 2, 'Libero exercitation', 'Qui debitis proident', '2020-07-10 16:39:00', '925.00', 'Blanditiis fuga Ab', 2);
 
 -- --------------------------------------------------------
 
@@ -147,7 +180,9 @@ INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
 ('20190422185428', '2019-04-22 18:54:37'),
 ('20190506143859', '2019-05-06 14:41:04'),
 ('20190506170948', '2019-05-06 17:10:43'),
-('20190513155417', '2019-05-13 15:56:22');
+('20190513155417', '2019-05-13 15:56:22'),
+('20190519172912', '2019-05-19 17:29:30'),
+('20190519173542', '2019-05-19 17:35:47');
 
 -- --------------------------------------------------------
 
@@ -172,10 +207,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `first_name`, `last_name`, `username`, `passwordResetToken`) VALUES
 (1, 'soxugij@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$bDA5VS9YWS9iZUNQbmV0Sg$uXlW3YPLXXACM3INW1WVtZHcliWh5Wk3OPagOdTo4bM', 'Nomlanga', 'Pope', 'dihapelyp', NULL),
-(2, 'admin@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2i$v=19$m=1024,t=2,p=2$WnZiVTN3MFNrY1lMV1FZLg$Vgr3kkh1ztc9jieEiaYTZ18fXiGN5+mY77DjGhSLJrM', 'Adminas', 'Adminavic', 'admin', NULL),
+(2, 'admin@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2i$v=19$m=1024,t=2,p=2$WnZiVTN3MFNrY1lMV1FZLg$Vgr3kkh1ztc9jieEiaYTZ18fXiGN5+mY77DjGhSLJrM', 'Adminas', 'Adminavitas', 'Admin', NULL),
 (3, 'hahywowaso@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$bWh0MEcvQjR4YXB2aXo3cQ$ltY9KAcFBzUjE/+9CahtQa+Iez91AcyObhntDEX/GY4', 'Melinda', 'Holland', 'rolav', NULL),
 (4, 'juho@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$ZE14Sng5Y09EVnhKZXM3aQ$OtmSkwKw4xGmythjxsazCue106eoPpUaQEapBxRssO8', 'Camilla', 'Carlson', 'xykacafi', NULL),
-(5, 'teltonikatest1234@gmail.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$eXNvblJUbWMxMW9rUU40WA$fi8VDXWl+XscFPEER3lgTTOdRNoAJjGj+m6RHHk8mCE', 'Jonas', 'Jonauskis', 'Jonukas', NULL),
+(5, 'teltonikatest1234@gmail.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$a2RZd0NMYy8vMVNhd3pDNw$CCp2krFmzBztOS24zvizWk0xc99u2osa3Acj6/Wd/5w', 'Jonas', 'Jonauskis', 'Jonukas', NULL),
 (6, 'muku@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$YkxPYXVubGRMeUowbzRjZw$Os36WyxrDkNlfLTyqxAIHRO0O02PE3eexxLjq4AfCpI', 'Winter', 'Snider', 'tizyxy', NULL),
 (7, 'tijuz@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$SEpnb1NmUVZaTy9JUU5KUQ$QS2AnkMxPrID9DWaN7XdZIZqNQ9sTWpJ8CKGoQenapI', 'Randall', 'Singleton', 'sefodafimu', NULL),
 (8, 'cytila@mailinator.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$TWhDRjhRaVoxcGNRdmdzNg$exM6JXt3QQ2P7mfzrYpq++LVUdiaF8k94yubdQyN72Y', 'Forrest', 'Banks', 'zigmas', NULL),
@@ -192,7 +227,12 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `first_name`, `last_name
 (21, 'goraxonec@mailinator.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$T3hWRnRKeUxkU0dMbWhlQg$A5yfi9vTaXZRiADoH4phlkFXL5OsENuFr1cUVnH5M8A', 'Natalija', 'Hester', 'SuperMega', NULL),
 (22, 'sasytonymo@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$THBXMkJNQy92SktORGU0Lg$psIsGTYVm0L0UMjEvkl8lvEzDQK20AhM9O5anU0T7IA', 'Hau', 'Newton', 'pewuhehuw', NULL),
 (23, 'wukyjeqav@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$NFpaRkQ5MnZPSHRMUkgzMQ$8s8NTraWvpKSyWbeEL8/IPS7mYKvxTKa2bmJn0a/We4', 'Patricia', 'Whitehead', 'xupebedul', NULL),
-(24, 'mapu@mailinator.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$bUZpakg3cWkyUmlHb1BnUQ$UK4yV8SHHEaKTj9RmoN9pxl71f/2UNNmD12UWF/8lzU', 'Melanie', 'Mcclain', 'henuwecu', NULL);
+(25, 'fizesabam@mailinator.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$dndtL2M3THRBUDB2dFdMeA$405bmxcr3Q0glf5Qn73B7thmHZQMpWyI3morxzHc5CA', 'Jenette', 'Richardson', 'Zaibas', NULL),
+(26, 'winubi@mailinator.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$cEkuczVzSS5RNWdoYWVZYw$o5FP5cCWesHw/1A1RXQpw2Tv/04+8S1nxS/YszmohQg', 'Jonas', 'Jonaitis', 'GoldenJone', NULL),
+(28, 'jorepewil@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$bXlxRmNybmRMMmdDckxZaQ$TjCDOyUWsN7r/bT+eT8V0iOTKF4+xS5AKsPxDh3VlQI', 'Garrison', 'Blake', 'jymusyxi', NULL),
+(29, 'sesycy@mailinator.com', '[]', '$argon2i$v=19$m=1024,t=2,p=2$RHpzRE9hbkVYRzBpd1V5Lw$JOHEwMFNkkEenE7V1nle2rv2XtMBbQxZnVN0PBGRU74', 'Phyllisss', 'Diaz', 'xydug', NULL),
+(30, 'rovaced@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$NFBaM2Q5dVF1bVpmdUxSQg$mhyY7QUbURtaK49WUlREFNoSoH3hxRZPZFhVM8cMhtA', 'Harriet', 'Drake', 'vyfuw', NULL),
+(31, 'kexufe@mailinator.net', '[]', '$argon2i$v=19$m=1024,t=2,p=2$RkU4czguem5UVmJiVEhZeQ$Q0m5H3j2yxob2kNyxnhoNlbdZ9tGoFEmy6C/yGdVra8', 'Emmanuel', 'Knight', 'bycas', NULL);
 
 --
 -- Indexes for dumped tables
@@ -203,6 +243,14 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `first_name`, `last_name
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category_user`
+--
+ALTER TABLE `category_user`
+  ADD PRIMARY KEY (`category_id`,`user_id`),
+  ADD KEY `IDX_608AC0E12469DE2` (`category_id`),
+  ADD KEY `IDX_608AC0EA76ED395` (`user_id`);
 
 --
 -- Indexes for table `comment`
@@ -241,31 +289,38 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `category_user`
+--
+ALTER TABLE `category_user`
+  ADD CONSTRAINT `FK_608AC0E12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_608AC0EA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `FK_9474526C71F7E88B` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
+  ADD CONSTRAINT `FK_9474526C71F7E88B` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_9474526CF675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
