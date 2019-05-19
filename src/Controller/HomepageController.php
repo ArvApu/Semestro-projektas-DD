@@ -9,7 +9,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class HomepageController extends AbstractController
 {
 
@@ -25,7 +24,6 @@ class HomepageController extends AbstractController
             $request->query->getInt('page', 1)/*page number*/,
             5/*limit per page*/
         );
-
 
         return $this->render('event/homepage.html.twig', [
             "events" => $pagination
