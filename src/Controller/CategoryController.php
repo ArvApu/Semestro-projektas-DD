@@ -69,7 +69,7 @@ class CategoryController extends AbstractController
         {
             $this->get('session')->getFlashBag()->add(
                 'error',
-                'This category is used in other events!');
+                'Negalimas veiksmas, ši kategorija turi priskirtų renginių!');
         }
         else
         {
@@ -107,10 +107,9 @@ class CategoryController extends AbstractController
     /**
      * @Route("categories/{id}/subscribe", name="category_subscribe")
      */
-    public function subscribe($id, UserInterface $user)
+    public function subscribe($id, UserInterface $user, UrlGeneratorInterface $urlGenerator)
     {
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
-        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
 
         $user->addSubscribedCategory($category);
         $category->addSubscribedUser($user);
@@ -119,25 +118,19 @@ class CategoryController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->render('event/homepage.html.twig', [
-            "events" => $events
-        ]);       
+        return new RedirectResponse($urlGenerator->generate('app_homepage'));    
     }
 
     /**
      * @Route("categories/{id}/unsubscribe", name="category_unsubscribe")
      */
-    public function unsubscribe(Category $category, UserInterface $user)
+    public function unsubscribe(Category $category, UserInterface $user, UrlGeneratorInterface $urlGenerator)
     {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
-
         $user->removeSubscribedCategory($category);
         $category->removeSubscribedUser($user);
 
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->render('event/homepage.html.twig', [
-            "events" => $events
-        ]);            
+        return new RedirectResponse($urlGenerator->generate('app_homepage'));             
     }    
 }

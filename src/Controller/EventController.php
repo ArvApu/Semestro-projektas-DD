@@ -9,7 +9,9 @@
 namespace App\Controller;
 
 
+use App\Form\CommentFormType;
 use App\Form\EventFormType;
+use App\Repository\CommentRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Entity\Category;
+use App\Entity\Comment;
 
 class EventController extends AbstractController
 {
@@ -118,19 +121,31 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("event/{eventId}", name="event_show")
+     * @Route("event/{id}", name="event_show")
      */
-    public function show($eventId)
-    {    
-        $repository = $this->getDoctrine()->getRepository(Event::class);
-        $event = $repository->findOneBy(['id' => $eventId]);
+    public function show(Request $request, Event $event, CommentRepository $repository)
+    {
+        $comment = new Comment();
 
-        if (!$event)
-        {
-            throw $this->createNotFoundException(sprintf('No event with id "%s"', $eventId));
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setAuthor($this->getUser());
+            $comment->setEvent($event);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirect($request->getUri());
         }
 
         return $this->render('event/show.html.twig', [
-            'event' =>  $event
+            'event' => $event,
+            'form' => $form->createView(),
+            'comments' => $repository->findBy(['event' => $event->getId()],['id' => 'DESC']),
         ]);
-    }}
+    }
+}

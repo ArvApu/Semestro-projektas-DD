@@ -5,7 +5,10 @@
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+<<<<<<< HEAD
         "doctrine/annotations": "^1.6",
+=======
+>>>>>>> 0281083e18e3b4ae87451156e7680e157bb07e76
         "knplabs/knp-paginator-bundle": "^3.0",
         "sensio/framework-extra-bundle": "^5.3",
         "swiftmailer/swiftmailer": "^6.2",
