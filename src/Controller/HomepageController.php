@@ -12,7 +12,6 @@ use App\Entity\Event;
 use App\Repository\DateTime;
 use App\Form\EventFilterType;
 
-
 class HomepageController extends AbstractController
 {
 

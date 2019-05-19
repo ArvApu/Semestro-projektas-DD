@@ -23,7 +23,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $event;
 

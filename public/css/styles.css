@@ -12,7 +12,7 @@ img {
 }
 
 html body {
-    background-color: #daebbf
+    background-color: #c7cbd4;
 }
 
 .comment-delete {
@@ -227,6 +227,7 @@ ul.pagination li:last-child {
         width: 40px;
         padding: 10px 0px 9px;
     }
+  
     .divide {
         display: flex;
     }
@@ -238,3 +239,34 @@ ul.pagination li:last-child {
         flex: 10%;
     }
 }
+
+}
+
+#categories {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin:30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #categories td, #categories th {
+    border: 1px;
+    padding: 9px;
+  }
+  
+  #categories tr:nth-child(even){background-color: #e2d7d7;}
+  
+  #categories th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #e2d7d7;
+    color: black;
+    width: 10%;  
+  }
+
+  #categories table,#categories th,#categories td {
+    border: 2px solid black;
+  }

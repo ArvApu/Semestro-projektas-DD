@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('error') %}
+
+    <div class="alert alert-danger flash-notice">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+
+        {% for category in categories %}
+<table id="categories">
+  <tr>
+    <th>Kategorija</th>
+    {% if is_granted('ROLE_ADMIN') %}
+    <th>Veiksmai</th>
+    {% endif %}
+  </tr>
+  <tr>
+    <td>{{category.name}}</td>
+    {% if is_granted('ROLE_ADMIN') %}
+    <td style="width:34%;"><a href="{{ path('category_edit', { id: category.id} ) }}">Koreguoti <i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <a href="{{ path('category_delete', { id: category.id} ) }}">Ištrinti <i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+    </td>
+    {% endif %}
+  </tr>
+</table>
+
+        {% endfor %}
+{% endblock %}
+
+

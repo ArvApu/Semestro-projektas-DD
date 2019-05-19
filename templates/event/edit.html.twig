@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Koreguoti renginį {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {{ form_start(form) }}
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.location) }}
+
+        <button class="btn btn-primary">Redaguoti!</button>
+
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}

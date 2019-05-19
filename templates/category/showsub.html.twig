@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+        {% for subcategory in subcategories %}
+        {% if app.user.id == subcategory.getUser().id %}
+<table id="categories">
+  <tr>
+    <th>Kategorija</th>
+  </tr>
+  <tr>
+    <td>{{subcategory.getCategory().name}}</td>
+  </tr>
+</table>
+{% endif  %}
+        {% endfor %}
+
+        {% for message in app.flashes('success') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endblock %}
