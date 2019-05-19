@@ -34,16 +34,6 @@ class EventFilterType extends AbstractType
                         'attr' => [
                             'placeholder' => 'Filtruoti pagal aprašyma',
                         ]])
-                //  ->add('date_from', DateTimeType::class, [
-                //     "label" => 'Data nuo',
-                //     'attr' => [
-                //         'placeholder' => 'Filtruoti pagal data',
-                //     ]])
-                //  ->add('date_to', DateTimeType::class, [
-                //         "label" => 'Data iki',
-                //         'attr' => [
-                //             'placeholder' => 'Filtruoti pagal data',
-                //         ]])
                 ->add('price', MoneyType::class, [
                     "label" => 'Kaina',
                     'attr' => [

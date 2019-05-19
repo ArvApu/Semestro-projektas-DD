@@ -8,8 +8,6 @@
             {{ form_row(form.title) }}
             {{ form_row(form.category) }}
             {{ form_row(form.description) }}
-            {# {{ form_row(form.date_from) }}
-            {{ form_row(form.date_to) }} #}
             {{ form_row(form.price) }}
             {{ form_row(form.location) }}
             <button class="btn btn-primary">Filtruoti</button>
@@ -20,7 +18,7 @@
 
                 <div class="row">
                     <div class="col-sm">
-                        <ul class="event-list" onclick="labas()">
+                        <ul class="event-list">
                             <li>
                                 <time datetime="{{ event.date|date('Y-m-d')}}">
                                     <span class="day">{{ event.date|date('d')}}</span>
