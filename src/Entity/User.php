@@ -61,6 +61,11 @@ class User implements UserInterface
     private $events;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="subscribedUsers")
+     */
+    private $subscribedCategories;
+
+    /**
      * @ORM\Column(type="string", length=64)
      */
     private $firstName;
@@ -83,6 +88,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->subscribedCategories = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -136,7 +142,6 @@ class User implements UserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
@@ -268,6 +273,37 @@ class User implements UserInterface
         if ($size)
             $url .= sprintf('?size=%dx%d', $size, $size);
         return $url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscribedCategories()
+    {
+        return $this->subscribedCategories;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function addSubscribedCategory(Category $category)
+    {
+        if(!$this->getSubscribedCategories()->contains($category))
+        $this->getSubscribedCategories()->add($category);
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function removeSubscribedCategory(Category $category)
+    {
+        if($this->getSubscribedCategories()->contains($category))
+        $this->getSubscribedCategories()->removeElement($category);
+    }
+
+    public function hasSubscribedCategory(Category $category)
+    {
+        return $this->getSubscribedCategories()->contains($category);
     }
 
     /**

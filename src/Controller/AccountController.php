@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+
+use App\Entity\User;
 use App\Form\UserUpdateFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\RedirectResponse;
